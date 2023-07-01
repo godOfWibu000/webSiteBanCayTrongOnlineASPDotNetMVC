@@ -1,0 +1,165 @@
+.left .menu-quanlytk{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	padding: 10px 2%;
+	margin: 10px 2%;
+	border: 2px solid var(--main-color2);
+}
+
+.left .menu-quanlytk .item-menu-quanlytk{
+	width: 33%;
+	text-align: center;
+	cursor: pointer;
+	color: black;
+	margin-bottom: 20px;
+}
+.left .menu-quanlytk .item-menu-quanlytk .icon span{
+	font-size: 40px;
+}
+#quanlytaikhoan-btn{
+	color: var(--main-color1);
+}
+
+.left .ql-frame{
+	margin: 10px 2%;
+	padding: 10px 0;
+}
+.left .ql-frame h5{
+	margin-bottom: 30px;
+}
+.left .ql-frame input{
+	width: 300px;
+}
+.left .ql-frame label{
+	width: 120px;
+}
+
+.left .ql-frame .button-ql{
+	background-color: var(--form-color1);
+	border: none;
+	color: white;
+	border-radius: 5px;
+	margin-top: 40px;
+	width: 150px;
+}
+.left .ql-frame .view-more{
+	position: relative;
+	border: none;
+	border-radius: 5px;
+	bottom: 63px;
+	left: 40px;
+	opacity: 0;
+}
+
+.left .quanlytk-frame .avatar{
+	width: 100px;
+	border: 2px solid var(--main-color2);
+	margin-bottom: 10px;
+	padding: 5px;
+}
+.left .quanlytk-frame .avatar button{
+	width: 100%;
+	margin-top: 0px;
+}
+
+.left .ttcanhan-frame div{
+	margin: 10px 0;
+}
+.left .ttcanhan-frame label{
+	width: 150px;
+}
+.left .ttcanhan-frame select{
+	width: 100px;
+}
+.left .ttcanhan-frame option{
+	height: 100px;
+}
+
+#quanly-ttcanhan, #quanly-dh{
+	display: none;
+}
+
+
+.left .ds-yeuthich{
+	display: none;
+}
+.left .ds-yeuthich .yeuthich{
+	display: flex;
+	height: 100px;
+}
+.left .ds-yeuthich .yeuthich .thumbnail{
+	width: 20%;
+}
+.left .ds-yeuthich .yeuthich .thumbnail .view-more{
+	position: relative;
+	border: none;
+	border-radius: 5px;
+	bottom: 63px;
+	left: 17px;
+	opacity: 0;
+}
+.left .ds-yeuthich .yeuthich .thumbnail:hover{
+	opacity: 0.7;
+	transition: 1s;
+}
+.left .ds-yeuthich .yeuthich .thumbnail:hover .view-more{
+	opacity: 1;
+	transition: 1s;
+}
+.left .ds-yeuthich .yeuthich .body{
+	width: 60%;
+	padding-left: 2%;
+}
+.left .ds-yeuthich .yeuthich .right{
+	width: 20%;
+	text-align: center;
+	padding: 10px 0;
+}
+.left .ds-yeuthich .yeuthich .right .like{
+	position: relative;
+	bottom: 20px;
+	left: 20px;
+}
+.left .ds-yeuthich .yeuthich .right i{
+	font-size: 20px;
+	padding: 2px;
+	cursor: pointer;
+}
+.left .ds-yeuthich .yeuthich .right .tuychon{
+	height: 50px;
+	background-color: #ecf0f1;
+	display: none;
+}
+.left .ds-yeuthich .yeuthich .right .tuychon button{
+	border: none;
+	width: 100%;
+	padding: 5px;
+}
+.left .ds-yeuthich .yeuthich .right .tuychon button:hover{
+	background-color: #34495e;
+	color: white;
+}
+.left .ds-yeuthich .yeuthich .right .click-tuychon:hover .tuychon{
+	display: block;
+}
+
+.left .ds-danhgia{
+	display: none;
+}
+.left .ds-danhgia .danhgia{
+	height: 150px;
+	margin: 20px 0;
+}
+.left .ds-danhgia .danhgia .top{
+	height: 50px;
+    text-decoration: none;
+    color: black;
+}
+.left .ds-danhgia .danhgia .top:hover{
+    color: blue;
+    text-decoration: underline;
+}
+.left .ds-danhgia .danhgia .bot{
+	padding: 5px 0;
+}

@@ -1,0 +1,72 @@
+﻿
+@{
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+    Layout = null;
+    int id = ViewBag.id;
+    var donGiaos = (from donGiao in db.DonGiaos
+                    join donHang in db.DonHangs on donGiao.MaDH equals donHang.MaDH
+                    join khachHang in db.KhachHangs on donHang.MaKH equals khachHang.MaKH
+                    where donGiao.MaShipper == id && donGiao.TrangThai=="Đang giao"
+                    select new { donGiao.MaShipper, donGiao.NgayGiao, donGiao.TrangThai, donGiao.NgayNhanHang, donHang.MaDH, donHang.MaSP, donHang.MaKH, donHang.SoTien, donHang.SoLuong, khachHang.DiaChi }).ToList();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ChiTietNguoiVanChuyen</title>
+</head>
+<body>
+    <div style="max-width: 1280px;margin: 0 auto;">
+        <h2>Thông tin cơ bản:</h2>
+
+        <div class="thongtinshipper">
+            @{
+                var shipper = (from shp in db.Shippers
+                               where shp.MaShipper == id
+                               select shp).ToList();
+                foreach(var item in shipper)
+                {
+                    <h3>Mã: <span>@item.MaShipper</span></h3>
+                    <h3>Họ tên: <span>@item.TenShipper</span></h3>
+                    <h3>Điện thoại: <span>@item.SDT</span></h3>
+                }
+            }
+        </div>
+        
+        <br />
+        <h2>Danh sách đơn hàng đang giao:</h2>
+
+        <div class="thongtindongiao">
+            <table style="width: 100%;text-align: center;">
+                <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Mã sản phẩm</th>
+                    <th>Mã khách hàng</th>
+                    <th>Số lượng</th>
+                    <th>Số tiền</th>
+                    <th>Ngày giao</th>
+                    <th>Ngày nhận</th>
+                    <th>Địa chỉ nhận</th>
+                </tr>
+
+                @foreach(var item in donGiaos)
+                {
+                    <tr>
+                        <td>@item.MaDH</td>
+                        <td>@item.MaSP</td>
+                        <td>@item.MaKH</td>
+                        <td>@item.SoLuong</td>
+                        <td>@item.SoTien<span>.000 đ</span></td>
+                        <td>@string.Format("{0:dd/MM/yyyy}", item.NgayGiao)</td>
+                        <td>@string.Format("{0:dd/MM/yyyy}", item.NgayNhanHang)</td>
+                        <td>@item.DiaChi</td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</body>
+</html>

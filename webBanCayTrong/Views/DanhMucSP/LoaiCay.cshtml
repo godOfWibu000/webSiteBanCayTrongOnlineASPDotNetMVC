@@ -1,0 +1,45 @@
+﻿
+@{
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+    ViewBag.Title = "Giống " + ViewBag.tenLoai;
+}
+
+<div class="left">
+    <h3>Giống @ViewBag.tenLoai</h3>
+    <div id="line"></div>
+    <div class="left-items">
+        @{
+            int maLoai = ViewBag.maLoai;
+            var sanPham = (from SanPham in db.SanPhams
+                           where SanPham.MaLoai == maLoai
+                           select SanPham).ToList();
+            foreach (var item in sanPham)
+            {
+                <div class="left-item">
+                    <div class="thumbnail-item">
+                        <img src="~/Content/img/@item.Img1" width="100%">
+                    </div>
+
+                    <div class="body-item">
+                        <h5>@string.Format("{0:#,0}", item.TenSP)</h5>
+                        <div class="rate-call">
+                            <div class="sosao">
+                                <span class="rate-number">@item.SoSao</span><span><i class="fas fa-star"></i></span>
+                            </div>
+                            <div class="call">
+                                <a href="tel:0969866534">
+                                    <span class="material-symbols-outlined">phone_in_talk</span>
+                                    <span>0123.xxx.xxx</span>
+                                </a>
+                            </div>
+                        </div>
+                        <p>@string.Format("{0:#,0}", item.GiaBan).000 đ</p>
+
+                        <a class="chitiet" href="/Home/ChiTietSP/?id=@item.MaSP&Login=@ViewBag.Login"><button>Chi tiết</button></a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+

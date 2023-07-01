@@ -1,0 +1,293 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: Arial;
+}
+.container{
+	max-width: 980px;
+	background-color: #34495e;
+	margin: 0 auto;
+	height: 96vh;
+	padding: 10px 2%;
+}
+.container .top .left{
+	color: white;
+	float: left;
+}
+.container .logo{
+	text-align: center;
+	clear: both;
+}
+.container .top .right{
+	float: right;
+}
+.container .top .right a{
+	color: white;
+	text-decoration: none;
+}
+.container .chucnang{
+	width: 100%;
+	border-collapse: collapse;
+	color: white;
+	margin: 30px auto;
+}
+.container .chucnang th{
+	border: 2px solid white;
+	text-align: left;
+}
+.container .chucnang a{
+	color: white;
+	text-decoration: none;
+	display: block;
+	padding: 10px 10px;
+}
+.container .chucnang th:hover{
+	background-color: white;
+}
+.container .chucnang th:hover a{
+	color: black;
+}
+.container .bot{
+	bottom: 0;
+	width: 100%;
+	color: white;
+	position: relative;
+	margin-top: 45vh;
+}
+.container .bot .left{
+	float: left;
+	width: 50%;
+}
+.container .bot .right{
+	float: left;
+	width: 50%;
+	text-align: right;
+}
+
+#capnhat-sp{
+    width: 40%;
+    margin: 0 auto;
+    padding: 10px 2%;
+    background-color: white;
+    font-size: 18px;
+}
+#capnhat-sp input{
+    width: 100%;
+    font-size: 20px;
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+#capnhat-sp textarea{
+    height: 200px;
+}
+#capnhat-sp .button{
+    text-align: center;
+    margin-top: 30px;
+}
+#capnhat-sp button{
+    padding: 5px 30px;
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    color: white;
+}
+#capnhat-sp .button .save{
+    background-color: green;
+}
+#capnhat-sp .button .reset{
+    background-color: grey;
+}
+#capnhat-sp .button .close{
+    background-color: red;
+}
+
+
+/*QLSP*/
+#locSP {
+    width: 300px;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 10px;
+    outline: none;
+    margin-top: 10px;
+}
+.qlsp{
+	max-width: 980px;
+	background-color: #34495e;
+	margin: 0 auto;
+	padding: 10px 2%;
+}
+.qlsp .top .left{
+	color: white;
+	float: left;
+}
+.qlsp .logo{
+	text-align: center;
+	clear: both;
+}
+.qlsp .top .right{
+	float: right;
+}
+.qlsp .top .right a{
+	color: white;
+	text-decoration: none;
+}
+.qlsp .dssp{
+	width: 100%;
+	border-collapse: collapse;
+	color: white;
+	margin: 10px auto;
+}
+.qlsp .dssp th{
+	background-color: #27ae60;
+	padding: 5px;
+}
+.qlsp .dssp th, .qlsp .dssp td{
+	border: 2px solid white;
+	text-align: left;
+}
+.qlsp .dssp td a{
+	color: white;
+	text-decoration: none;
+	padding: 5px;
+	display: block;
+}
+.qlsp .dssp td a:hover{
+	text-decoration: underline;
+}
+.qlsp .bot{
+	margin: 50px 0 10px 0;
+	width: 100%;
+	color: white;
+}
+.qlsp .bot .left{
+	float: left;
+	width: 50%;
+}
+.qlsp .bot .right{
+	float: left;
+	width: 50%;
+	text-align: right;
+}
+.qlsp .locdh{
+    float: right;
+}
+.qlsp .locdh span{
+    margin-right: 20px;
+}
+.qlsp .locdh a{
+    text-decoration: none;
+    color: white;
+}
+
+/*Chi tiet qlsp*/
+.ctqlsp{
+	max-width: 980px;
+	background-color: #34495e;
+	margin: 0 auto;
+	padding: 10px 2%;
+}
+.ctqlsp .top .left{
+	color: white;
+	float: left;
+}
+.ctqlsp .logo{
+	text-align: center;
+	clear: both;
+}
+.ctqlsp .top .right{
+	float: right;
+}
+.ctqlsp .top .right a{
+	color: white;
+	text-decoration: none;
+}
+.ctqlsp .ctsp{
+	width: 100%;
+	border-collapse: collapse;
+	color: white;
+	margin: 10px auto;
+}
+.ctqlsp .ctsp th{
+	padding: 5px;
+	border: 2px solid white;
+	text-align: left;
+}
+.ctqlsp .btns{
+	text-align: center;
+	margin-top: 20px;
+}
+.ctqlsp .btns .btn{
+	padding: 5px 40px;
+	font-size: 16px;
+	color: white;
+	border: none;
+	margin: 0 10px;
+	cursor: pointer;
+}
+.ctqlsp .btns .btn:hover{
+	opacity: 0.8;
+	transition: 0.5s;
+}
+.ctqlsp .btns .update{
+	background-color: #2980b9;
+}
+.ctqlsp .btns .delete{
+	background-color: #e74c3c;
+}
+.ctqlsp .bot{
+	margin: 50px 0 10px 0;
+	width: 100%;
+	color: white;
+}
+.ctqlsp .bot .left{
+	float: left;
+	width: 50%;
+}
+.ctqlsp .bot .right{
+	float: left;
+	width: 50%;
+	text-align: right;
+}
+
+#xacnhanxoa{
+	display: none;
+	position: fixed;
+	top: 0;
+	text-align: center;
+	margin: auto;
+	background-color: white;
+	font-size: 20px;
+	padding: 10px;
+	animation-name: xacNhanAnimate;
+	animation-duration: 0.5s;
+}
+#xacnhanxoa label{
+	font-size: 25px;
+}
+#xacnhanxoa button{
+	font-size: 20px;
+	padding: 5px 40px;
+	border: none;
+	color: white;
+	background-color: red;
+	cursor: pointer;
+}
+#xacnhanxoa span{
+	padding: 5px 24px;
+	color: white;
+	background-color: green;
+	cursor: pointer;
+}
+
+/*Animation*/
+@keyframes xacNhanAnimate {
+    0%{
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}

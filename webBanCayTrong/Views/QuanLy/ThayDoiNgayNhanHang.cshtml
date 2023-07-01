@@ -1,0 +1,27 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ThayDoiNgayNhanHang</title>
+    <style>
+        input,button{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Thay đổi ngày nhận hàng cho đơn hàng - @Model.MaDH</h2>
+        <form method="post" action="~/QuanLy/ThayDoiNgayNhanHang/?Login=@ViewBag.Login&id=@Model.MaDH">
+            <input type="date" name="ngayNhanHang" value="@string.Format("{0:yyyy-MM-dd}", Model.NgayNhanHang)" /><br /><br />
+            <button>Thay đổi</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+.product{
+	display: flex;
+}
+/*Left*/
+		.product .left-product{
+			margin-right: 1%;
+			margin-left: 1%;
+		}
+		.product .left-product .top{
+			display: flex;
+			padding: 0 0 0 1%;
+			border-top: 1px solid #bdc3c7;
+			border-left: 1px solid #bdc3c7;
+		}
+		.product .left-product .top .left, .product .left-product .top .right{
+			width: 50%;
+			padding-right: 1%;
+		}
+		.product .left-product .top .left .thumbnail{
+			border: 3px solid var(--main-color1);
+		}
+		.product .left-product .top .right .infor-product .order-btn button{
+			width: 100%;
+			background-color: var(--form-color1);
+			margin: 10px 0;
+			padding: 5px 0;
+			border: none;
+			color: white;
+			border-radius: 5px;
+		}
+		.product .left-product .top .right .infor-product .order-btn h6{
+			color: #16a085;
+		}
+		.product .left-product .bottom{
+			border-bottom: 1px solid #bdc3c7;
+			border-right: 1px solid #bdc3c7;
+			padding: 10px 1%;
+            cursor: pointer;
+		}
+
+	/*Infor-product*/
+        .right .infor-product .them-vao-yeu-thich input{
+			display: none;
+		}
+		#like{
+			border: none;
+			background: none;
+		}
+		#like i{
+			position: relative;
+			color: #e74c3c;
+			cursor: pointer;
+		}
+		#like:hover #tooltiptext{
+			visibility: visible;
+		}
+		#tooltiptext{
+			position: absolute;
+			visibility: hidden;
+			top: 30px;
+			width: 170px;
+			background-color: #e74c3c;
+			color: white;
+			text-align: center;
+			border-radius: 6px;
+			padding: 5px;
+            z-index: 1000; 
+		}
+		#share{
+			display: none;
+		}
+		#share .button{
+			background-color: #3498db;
+			padding: 5px;
+			width: 130px;
+		}
+		#share .btn{
+			color: white;
+			padding: 3px 10px;
+		}
+        .rate {
+            position: absolute;
+        }
+
+        .star1, .star2, .star3, .star4, .star5 {
+            opacity: 0;
+        }
+
+        .halfstar1, .halfstar2, .halfstar3, .halfstar4, .halfstar5 {
+            opacity: 0;
+        }
+
+        .rate .half-star {
+            position: relative;
+            bottom: 24px;
+        }
+
+        .rate .line-star {
+            position: relative;
+            bottom: 48px;
+        }
+
+/*Danh gia*/
+    #danhgias {
+        border: 1px solid #bdc3c7;
+        margin-top: 10px;
+        padding: 10px 0.5%;
+    }
+
+    #danhgias .danhgia {
+        padding: 10px 2%;
+        border: 2px solid black;
+        margin-bottom: 10px;
+    }
+/*Right*/
+	.sanpham-tuongtu{
+		float: left;
+		width: 30%;
+	}
+	.sanpham-tuongtu h4{
+		padding: 5px 0;
+		text-align: center;
+		color: white;
+		background: var(--main-color1);
+	}
+	.sanpham-tuongtu .ds-sanpham-tuongtu{
+		border: 1px solid #bdc3c7;
+		padding: 10px 1%;
+		height: 300px;
+		overflow-y: auto;
+	}
+	.sanpham-tuongtu .ds-sanpham-tuongtu .sanpham-tuongtu-item{
+		border-bottom: 2px solid var(--main-color2);
+		display: flex;
+		margin-bottom: 10px;
+		cursor: pointer;
+	}
+	.sanpham-tuongtu .ds-sanpham-tuongtu .sanpham-tuongtu-item .thumbnail{
+		width: 30%;
+	}
+	.sanpham-tuongtu .ds-sanpham-tuongtu .sanpham-tuongtu-item .body{
+		width: 70%;
+		padding-left: 1%;
+		position: relative;
+	}
+	.sanpham-tuongtu .ds-sanpham-tuongtu .sanpham-tuongtu-item .body button{
+		bottom: 0;
+		width: 100%;
+		color: white;
+		background-color: var(--form-color1);
+		border: none;
+		position: absolute;
+		height: 0px;
+		opacity: 0;
+	}
+	.sanpham-tuongtu .ds-sanpham-tuongtu .sanpham-tuongtu-item:hover button{
+		height: 26px;
+		opacity: 1;
+		transition: 0.5s;
+	}
+
+
+/*Responsive*/
+	@media screen and (max-width:768px){
+		.product{
+			display: block;
+		}
+		.product .left-product, .product .right-product{
+			width: 100%;
+			margin: 0;
+		}
+		.product .left-product .top{
+			display: block;
+		}
+		.product .left-product .top .left, .product .left-product .top .right{
+			width: 100%;
+		}
+		#tooltiptext{
+			display: none;
+		}
+	}
+
+/*Animation*/
+	

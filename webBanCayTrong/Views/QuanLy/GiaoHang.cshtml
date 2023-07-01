@@ -1,0 +1,66 @@
+﻿
+@{
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Giao hàng</title>
+    <style>
+        span, a{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h3>@ViewBag.Login</h3>
+        <h3>Mã - @ViewBag.id</h3>
+
+        <h2>Danh sách đơn hàng đang giao</h2>
+        @{
+            int id = ViewBag.id;
+            var dsDg = (from dg in db.DonGiaos
+                        join dh in db.DonHangs on dg.MaDH equals dh.MaDH
+                        join kh in db.KhachHangs on dh.MaKH equals kh.MaKH
+                        join sp in db.SanPhams on dh.MaSP equals sp.MaSP
+                        where dg.MaShipper == id && dg.TrangThai == "Đang giao"
+                        select new { dg.MaDH, dh.SoLuong, sp.TenSP, kh.TenKH, kh.SDT }).ToList();
+
+            foreach (var item in dsDg)
+            {
+                <hr />
+                <span>@item.MaDH - </span>
+                <span>@item.TenSP<span>(x</span>@item.SoLuong<span>)</span> - </span>
+                <span>@item.TenKH - </span>
+                <span>@item.SDT</span>
+                <a href="~/QuanLy/ChiTietGiaoHang/?Login=@ViewBag.Login&id=@item.MaDH">Xem chi tiết...</a><br />
+            }
+        }
+
+        <h2>Danh sách đơn hàng đã giao</h2>
+        @{
+            var dsDg2 = (from dg in db.DonGiaos
+                        join dh in db.DonHangs on dg.MaDH equals dh.MaDH
+                        join kh in db.KhachHangs on dh.MaKH equals kh.MaKH
+                        join sp in db.SanPhams on dh.MaSP equals sp.MaSP
+                        where dg.MaShipper == id && dg.TrangThai == "Đã giao"
+                        select new { dg.MaDH, dh.SoLuong, sp.TenSP, kh.TenKH, kh.SDT }).ToList();
+
+            foreach (var item in dsDg2)
+            {
+                <hr />
+                <span>@item.MaDH - </span>
+                <span>@item.TenSP<span>(x</span>@item.SoLuong<span>)</span> - </span>
+                <span>@item.TenKH - </span>
+                <span>@item.SDT</span>
+                <a href="~/QuanLy/ChiTietGiaoHang/?Login=@ViewBag.Login&id=@item.MaDH">Xem chi tiết...</a><br />
+            }
+        }
+    </div>
+</body>
+</html>

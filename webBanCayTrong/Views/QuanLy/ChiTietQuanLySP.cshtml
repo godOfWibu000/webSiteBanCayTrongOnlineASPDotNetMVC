@@ -1,0 +1,134 @@
+﻿@model webBanCayTrong.Models.SanPham
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <!-- Css -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/quantri.css">
+
+    <!-- Shotcut -->
+    <link rel="shortcut icon" type="image/png" href="~/Content/img/logo.png" />
+
+    <!-- Font google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap" rel="stylesheet">
+
+    <!-- Icon google -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+    <!-- Icon Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <title>Chi tiết sản phẩm</title>
+</head>
+<body>
+    <div class="ctqlsp">
+        <div id="xacnhanxoa">
+            <label>Bạn có muốn xóa sản phẩm này?</label><br />
+            <div style="margin-top: 30px;">
+                <button><a style="color: white;text-decoration: none;" href="~/QuanLy/XoaSP/?id=@Model.MaSP">Có</a></button>
+                <span onclick="huyXoa()">Không</span>
+            </div>
+        </div>
+
+        <div class="top">
+            <div class="left">
+                <h3>Quản trị hệ thống bán cây trồng Online</h3>
+                <h2>Cây giống Hoàng-Điệp-Lương</h2>
+            </div>
+
+            <div class="right">
+                <a href="#">
+                    <span style="position: relative;top: 6px;" class="material-symbols-outlined">
+                        account_circle
+                    </span> admin
+                </a>
+            </div>
+
+        </div><br />
+        <div class="logo">
+            <img src="~/Content/img/logo.png" width="70px">
+        </div>
+
+        <h3 style="color: white;text-align: center;padding-top: 20px;">Chi tiết sản phẩm</h3>
+
+        <table class="ctsp">
+            <tr>
+                <th>Mã sản phẩm</th>
+                <th>@Model.MaSP</th>
+            </tr>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>@Model.TenSP</th>
+            </tr>
+            <tr>
+                <th>Giá bán</th>
+                <th>@Model.GiaBan<span>.000 đ</span></th>
+            </tr>
+            <tr>
+                <th>Số lượng</th>
+                <th>@Model.SoLuong</th>
+            </tr>
+            <tr>
+                <th>Giá nhập</th>
+                <th>@Model.GiaNhap<span>.000 đ</span></th>
+            </tr>
+            <tr>
+                <th>Số lượng nhập</th>
+                <th>@Model.SLNhap</th>
+            </tr>
+            <tr>
+                <th>Số lượng bán</th>
+                <th>@Model.SLDaBan</th>
+            </tr>
+            <tr>
+                <th>Đánh giá</th>
+                <th>@Model.SoSao</th>
+            </tr>
+            <tr>
+                <th>Danh mục</th>
+
+                @{
+                    if (Model.MaDanhMuc == 1)
+                    {
+                        <th>Cây ăn quả</th>
+                    }
+                    else
+                    {
+                        <th>Cây công trình</th>
+                    }
+                }
+            </tr>
+        </table>
+
+        <div class="btns">
+            <a href="~/QuanLy/CapNhatSP/?id=@Model.MaSP"><button class="btn update">Sửa thông tin</button></a>
+            <button class="btn delete" onclick="xoaSP()">Xóa sản phẩm</button>
+        </div>
+
+        <div class="bot">
+            <div class="left">
+                <p>Phát triển bởi HLSoft</p>
+            </div>
+
+            <div class="right">
+                <p>©Bản quyền thuộc về Cây giống Hoàng-Điệp-Lương</p>
+            </div>
+        </div>
+
+        <div style="clear: both;"></div>
+
+    </div>
+
+    <!-- Js -->
+    <script src="~/Content/js/main.js"></script>
+</body>
+</html>

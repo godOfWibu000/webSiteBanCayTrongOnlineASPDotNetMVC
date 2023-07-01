@@ -1,0 +1,97 @@
+﻿
+
+@{
+    Layout = null;
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+    string thang = ViewBag.thang;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ChiTietDoanhThu</title>
+    <style>
+        .sanpham {
+            display: flex;
+            font-size: 20px;
+        }
+        .sanpham .title{
+            width: 10%;
+        }
+        .sanpham .cot1, .sanpham .cot2{
+            height: 30px;
+            color: white;
+            padding: 0 5px;
+        }
+    </style>
+</head>
+<body onload="load()">
+    <div>
+        <h2>Chi tiết doanh thu tháng @ViewBag.thang</h2>
+        <hr />
+        @{ 
+            var SP = (from sp in db.SanPhams
+                      select sp).ToList();
+            foreach(var item1 in SP)
+            {
+                int tong = 0;
+                int tongSL = 0;
+                double tiLeSL = 0;
+                double tiLeDoanhThu = 0;
+                var DH = (from dh in db.DonHangs
+                          join dg in db.DonGiaos on dh.MaDH equals dg.MaDH
+                          where dg.TrangThai == "Đã giao" && dg.NgayNhanHang.ToString().IndexOf(thang) >= 0 && dh.MaSP == item1.MaSP
+                          select new { dh.SoLuong }).ToList();
+
+                string giaBanStr = string.Format("{0:#,0}", item1.GiaBan);
+                string giaNhapStr = string.Format("{0:#,0}", item1.GiaNhap);
+                int giaBan = int.Parse(giaBanStr);
+                int giaNhap = int.Parse(giaNhapStr);
+                int tienLai = giaBan - giaNhap;
+                foreach (var item2 in DH)
+                {
+                    string slStr = string.Format("{0:#,0}", item2.SoLuong);
+                    int sl = int.Parse(slStr);
+                    tongSL += sl;
+                }
+                tong = tienLai * tongSL;
+
+                tiLeSL = Math.Round((1.0 * tongSL / Model.SLBan), 2) * 100;
+                tiLeDoanhThu = Math.Round((1.0 * tong / Model.DoanhThu1), 2) * 100;
+
+                <div class="sanpham">
+                    <p class="title">@item1.TenSP</p>
+                    <div style="width: 90%;">
+                        <span>Tổng đã bán: @tongSL</span>
+                        <div class="cot1" style="background-color: red;">
+                            <span class="tile1">@tiLeSL</span> %
+                        </div>
+                        <span>Doanh thu: @tong<span>.000 đ</span></span>
+                        <div class="cot2" style="background-color: green;">
+                            <span class="tile2">@tiLeDoanhThu</span> %
+                        </div>
+                    </div>
+                </div>
+                <hr />
+
+            }
+        }
+    </div>
+
+    <script>
+        function load() {
+            var tile1 = document.getElementsByClassName('tile1');
+            var tile2 = document.getElementsByClassName('tile2');
+            var cot1 = document.getElementsByClassName('cot1');
+            var cot2 = document.getElementsByClassName('cot2');
+
+            for (var i = 0; i < cot1.length; i++) {
+                cot1[i].style.width = tile1[i].innerHTML + '%';
+                cot2[i].style.width = tile2[i].innerHTML + '%';
+            }
+        }
+    </script>
+</body>
+</html>

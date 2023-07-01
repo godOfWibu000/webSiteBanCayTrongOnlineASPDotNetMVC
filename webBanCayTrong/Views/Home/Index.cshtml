@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "HLGarden-Cung cấp cây giống chất lượng.";
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+
+    int soSP = (from sp in db.SanPhams select sp).Count();
+    int soTrang = soSP / 10 + 1;
+    int dem = 10;
+    int i = 0;
+
+    if (ViewBag.Page != null)
+    {
+        int page = int.Parse(ViewBag.Page);
+        for(int j=1;j<=soTrang;j++)
+        {
+            if (page == j)
+            {
+                dem = j * 10;
+            }
+        }
+    }
+}
+<!-- Left -->
+<div class="left">
+    <h3>Sản phẩm nổi bật</h3>
+    <div id="line"></div>
+    <div class="left-items">
+        @{
+            var sanPham = (from SanPham in db.SanPhams
+                           orderby SanPham.SoSao descending
+                           select SanPham).ToList();
+            foreach (var item in sanPham)
+            {
+                if (i < dem - 10 && dem > 10)
+                {
+                    <div></div>
+                }
+                else
+                {
+                    <div class="left-item">
+                        <div class="thumbnail-item">
+                            <img src="~/Content/img/@item.Img1" width="100%">
+                        </div>
+
+                        <div class="body-item">
+                            <h5>@string.Format("{0:#,0}", item.TenSP)</h5>
+                            <div class="rate-call">
+                                <div class="sosao">
+                                    <span class="rate-number">@item.SoSao</span><span><i class="fas fa-star"></i></span>
+                                </div>
+                                <div class="call">
+                                    <a href="tel:0969866534">
+                                        <span class="material-symbols-outlined">phone_in_talk</span>
+                                        <span>0123.xxx.xxx</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <p>@string.Format("{0:#,0}", item.GiaBan).000 đ</p>
+
+                            <a class="chitiet" href="~/SanPham/ChiTietSanPham/?id=@item.MaSP&Login=@ViewBag.Login"><button>Chi tiết</button></a>
+                        </div>
+                    </div>
+                }
+                i++;
+
+                if (i == dem)
+                {
+                    break;
+                }
+            }
+        }
+    </div>
+    <div class="sotrang">
+        <span><a href="~/Home/Index/?Login=@ViewBag.Login&Page=1"><button>1</button></a></span>
+        <span><a href="~/Home/Index/?Login=@ViewBag.Login&Page=2"><button>2</button></a></span>
+        <span><a href="~/Home/Index/?Login=@ViewBag.Login&Page=3"><button>3</button></a></span>
+        <span><a href="~/Home/Index/?Login=@ViewBag.Login&Page=4"><button>4</button></a></span>
+        <span><a href="#"><button>...</button></a></span>
+
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+        <span><button> << </button></span>
+        <span><button> >> </button></span>
+    </div>
+</div>

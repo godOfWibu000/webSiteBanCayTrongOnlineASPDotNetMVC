@@ -1,0 +1,226 @@
+﻿
+@{
+    ViewBag.Title = "Chi tiết sản phẩm " + Model.TenSP;
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+}
+
+<div style="border-top: 0.5px solid grey; margin: 5px 0;opacity: 0.7;"></div>
+<div style="border-top: 10px solid var(--main-color2);margin: 5px 0;"></div>
+<div style="border-top: 0.5px solid grey; margin-bottom: 10px;opacity: 0.7;"></div>
+<!-- Left -->
+<div class="left">
+    <div class="product">
+        <div class="left-product">
+            <div class="top">
+                <div class="left">
+                    <div class="thumbnail">
+                        <img src="~/Content/img/@Model.Img1" width="100%">
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="infor-product">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h3>@Model.TenSP</h3>
+                            @{
+                                if (ViewBag.Login == null || ViewBag.Login == "")
+                                {
+
+                                }
+                                else
+                                {
+                                    <form class="them-vao-yeu-thich" method="post" action="~/SanPham/ThemVaoYeuThich/?id=@Model.MaSP">
+                                        <input type="text" name="TenTK" value="@ViewBag.Login">
+                                        <input type="text" id="tf-favorite" name="TorF" value="@ViewBag.Favorite">
+                                        <button type="submit" id="like">
+                                            <i class="far fa-heart" id="heart1"></i>
+                                            <i class="fas fa-heart" id="heart2"></i>
+                                            <span id="tooltiptext">Thêm vào yêu thích</span>
+                                        </button>
+                                    </form>
+                                }
+                            }
+                        </div>
+
+                        <div style="border-top: 3px solid var(--main-color2);"></div>
+                        <div class="share-icon" onclick="showbtnshare()" style="float: right;">@Model.SLDaBan đã mua <i style="cursor: pointer;position: relative;" class="fas fa-share-square"><span>Chia sẻ</span></i></div><br>
+                        <div id="share" style="float: right;">
+                            <i style="float: right;position: relative;bottom: 10px;right: 3px;color: #3498db;" class="fas fa-caret-up"></i>
+                            <div class="button">
+                                <buton class="btn fb"><i class="fab fa-facebook-f"></i></buton>
+                                <buton class="btn twit"><i class="fab fa-twitter"></i></buton>
+                                <buton class="btn inst"><i class="fab fa-instagram"></i></buton>
+                            </div>
+                        </div>
+                        <div class="rate" style="color: #e67e22;">
+                            <!-- Star -->
+                            <div class="star">
+                                <i class="fas fa-star star1"></i>
+                                <i class="fas fa-star star2"></i>
+                                <i class="fas fa-star star3"></i>
+                                <i class="fas fa-star star4"></i>
+                                <i class="fas fa-star star5"></i>
+                            </div>
+
+                            <!-- Half star -->
+                            <div class="half-star">
+                                <i class="fas fa-star-half halfstar1"></i>
+                                <i class="fas fa-star-half halfstar2"></i>
+                                <i class="fas fa-star-half halfstar3"></i>
+                                <i class="fas fa-star-half halfstar4"></i>
+                                <i class="fas fa-star-half halfstar5"></i>
+                            </div>
+
+                            <!-- Line star -->
+                            <div class="line-star">
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span class="numberstar">@Model.SoSao</span>
+                            </div>
+                        </div>
+                        <p style="margin-top: 20px;"></p>
+
+                        <div class="price">
+                            <h5>
+                                <span>@Model.GiaBan</span><span>.000đ</span>
+                            </h5>
+                        </div>
+
+                        <span style="color: #d63031;"><i class="fas fa-phone"></i> Liên hệ đặt hàng trực tiếp 0123.xxx.xxx</span>
+
+                        <div class="order-btn">
+                            @{
+                                if (ViewBag.Login == null || ViewBag.Login == "")
+                                {
+                                    <a href="~/TaiKhoan/Login">
+                                        <button><i class="fas fa-cart-arrow-down"></i> Thêm vào giỏ hàng</button>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="~/MuaHang/ThemVaoGioHang/?Login=@ViewBag.Login&Id=@Model.MaSP">
+                                        <button><i class="fas fa-cart-arrow-down"></i> Thêm vào giỏ hàng</button>
+                                    </a>
+                                }
+                            }
+                            @{
+                                if (ViewBag.Login == null || ViewBag.Login == "")
+                                {
+                                    <a href="~/TaiKhoan/Login">
+                                        <button><i class="fas fa-shopping-bag"></i> Đặt hàng ngay</button>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="~/MuaHang/MuaHang/?Login=@ViewBag.Login&Id=@Model.MaSP">
+                                        <button><i class="fas fa-shopping-bag"></i> Đặt hàng ngay</button>
+                                    </a>
+                                }
+                            }
+                            <br>
+                            <h6><i class="fas fa-shipping-fast"></i> Miễn phí giao hàng cho đơn hàng có số lượng sản phẩm từ 100 trở lên</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom">
+                <div class="information">
+                    <div style="border-top: 3px solid var(--main-color2);"></div>
+                    <h5>Mô tả</h5>
+                    <p>@Model.MoTa1</p>
+                    <img src="https://hoaquathanhha.com/wp-content/uploads/2016/12/tat-tan-tat-nhung-dieu-ban-chua-biet-ve-cay-xoai-tim-1.jpg.webp" width="100%">
+                    <br /><br />
+                    <h5>Cách trồng</h5>
+                    <p>
+                        @Model.MoTa2
+                    </p>
+                    <img src="https://hoaquathanhha.com/wp-content/uploads/2016/12/tat-tan-tat-nhung-dieu-ban-chua-biet-ve-cay-xoai-tim.jpg.webp" width="100%">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="danhgias">
+        <h3 style="margin-bottom: 20px;">Đánh giá về sản phẩm</h3>
+
+        @{
+            int maSP = Model.MaSP;
+
+            var danhGia = (from dg in db.DanhGias
+                           join tk in db.TaiKhoans on dg.TenTK equals tk.TenTK
+                           where dg.MaSP == maSP
+                           select new { tk.TenTK, tk.Avatar, dg.ThoiGianDG, dg.SoSaoDG, dg.BinhLuanDG }).ToList();
+            foreach (var item in danhGia)
+            {
+                <div class="danhgia">
+                    <a style="text-decoration: none;" href="#" class="account">
+                        <img style="border-radius: 40px;" src="~/Content/img/@item.Avatar" width="40px" height="40px">
+                        <span style="font-size: 20px;">@item.TenTK</span>
+                    </a>
+
+                    <p>@item.ThoiGianDG</p>
+
+                    <div class="rate" style="color: #e67e22;">
+                        <div class="star">
+                            <i class="fas fa-star star1"></i>
+                            <i class="fas fa-star star2"></i>
+                            <i class="fas fa-star star3"></i>
+                            <i class="fas fa-star star4"></i>
+                            <i class="fas fa-star star5"></i>
+                        </div>
+
+                        <div class="half-star">
+                            <i class="fas fa-star-half halfstar1"></i>
+                            <i class="fas fa-star-half halfstar2"></i>
+                            <i class="fas fa-star-half halfstar3"></i>
+                            <i class="fas fa-star-half halfstar4"></i>
+                            <i class="fas fa-star-half halfstar4"></i>
+                        </div>
+
+                        <div class="line-star">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span class="numberstar">@item.SoSaoDG</span>
+                        </div>
+                    </div>
+                    <p style="position: relative;top: 25px;">@item.BinhLuanDG</p>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<!-- San pham tuong tu -->
+<div class="sanpham-tuongtu">
+    <h4>Sản phẩm tương tự</h4>
+    <div class="ds-sanpham-tuongtu">
+        @{
+            int maLoai = Model.MaLoai;
+            var spTuongTu = (from sptt in db.SanPhams
+                             where sptt.MaLoai == maLoai
+                             select sptt).ToList();
+            foreach (var item in spTuongTu)
+            {
+                if (item.TenSP != ViewBag.tenSP)
+                {
+                    <div class="sanpham-tuongtu-item">
+                        <div class="thumbnail">
+                            <img src="~/Content/img/@item.Img1" width="100%" height="100%">
+                        </div>
+                        <div class="body">
+                            <h5>@string.Format("{0:#,0}", item.TenSP)</h5>
+                            <a href="~/SanPham/ChiTietSanPham/?id=@item.MaSP&Login=@ViewBag.Login"><button>Xem ngay</button></a>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>
+

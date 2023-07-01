@@ -1,0 +1,91 @@
+﻿
+@{
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Chi tiết giao hàng đơn hàng - @ViewBag.id</title>
+    <style>
+        p {
+            font-size: 20px;
+        }
+
+        button {
+            font-size: 20px;
+            margin: 10px 0;
+            padding: 3px 10px;
+            cursor: pointer;
+        }
+
+        #xacnhan{
+            background-color: green;
+            padding: 10px 2%;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: none;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="xacnhan">
+            <h2 style="color: white;">Bạn xác nhận rằng đơn hàng đã đến tay khách hàng?</h2>
+            <div style="margin-top: 30px;">
+                <button><a href="~/QuanLy/GiaoHangThanhCong/?Login=@ViewBag.Login&id=@ViewBag.id">Có</a></button>
+                <button onclick="huy()">Không</button>
+            </div>
+        </div>
+        <h2>Chi tiết giao hàng đơn hàng - @ViewBag.id</h2>
+        <hr />
+        @{
+            int id = ViewBag.id;
+            var ctgh = (from dh in db.DonHangs
+                        join dg in db.DonGiaos on dh.MaDH equals dg.MaDH
+                        join sp in db.SanPhams on dh.MaSP equals sp.MaSP
+                        join kh in db.KhachHangs on dh.MaKH equals kh.MaKH
+                        where dh.MaDH == id
+                        select new { dh.MaDH, dh.SoLuong, dh.SoTien, dg.NgayGiao, dg.NgayNhanHang, dg.TrangThai, sp.TenSP, kh.TenKH, kh.SDT, kh.DiaChi }).ToList();
+            foreach (var item in ctgh)
+            {
+                <p>Mã đơn hàng: @item.MaDH</p>
+                <p>Tên đơn hàng: @item.TenSP<span>(x</span>@item.SoLuong<span>)</span></p>
+                <p>Số tiền thanh toán: @item.SoTien<span>.000 đ</span></p>
+                <p>Ngày giao hàng: @string.Format("{0:dd/MM/yyyy}", item.NgayGiao)</p>
+                <p>Ngày nhận hàng: @string.Format("{0:dd/MM/yyyy}", item.NgayNhanHang)</p>
+                <p>Tên khách hàng: @item.TenKH</p>
+                <p>Địa chỉ: @item.DiaChi</p>
+                <p>Số điện thoại: @item.SDT</p>
+
+                if (item.TrangThai == "Đang giao")
+                {
+                    <button><a href="~/QuanLy/ThayDoiNgayNhanHang/?Login=@ViewBag.Login&id=@item.MaDH">Thay đổi ngày nhận hàng</a></button>
+                    <button onclick="xacNhan()">Đã giao hàng thành công</button>
+                    <button>Không giao được hàng</button>
+                }
+            }
+        }
+    </div>
+
+    <script>
+        function xacNhan() {
+            document.getElementById('xacnhan').style.display = "block";
+        }
+        function huy() {
+            document.getElementById('xacnhan').style.display = "none";
+        }
+    </script>
+</body>
+</html>

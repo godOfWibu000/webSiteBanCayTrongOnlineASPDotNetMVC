@@ -1,0 +1,580 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap');
+*{
+	font-family: 'Be Vietnam Pro', sans-serif;
+	box-sizing: border-box;
+}
+
+
+/*Khai bao bien*/
+:root{
+	--main-color1: #27ae60;
+	--main-color2: #e67e22;
+	--form-color1: #00cec9;
+	--hover-transition: 1s;
+	--border-radius-button: 5px;
+}
+
+
+.webapp{
+	max-width: 1180px;
+	margin: 0 auto;
+}
+content{
+	position: relative;
+	bottom: 15px;
+}
+footer{
+	position: relative;
+	top: 17px;
+}
+
+/*Dau trang*/
+	/*Head*/
+		header{
+			height: 100px;
+		}
+		#title-mobile{
+			display: none;
+			text-align: center;
+			padding: 3px 0 5px 0;
+			border-bottom: 3px solid blue;
+		}
+		header .head1, header .head1 .left,header .head1 .right{
+			display: flex;
+			justify-content: space-between;
+			padding: 3px 0;
+		}
+		header .head1{
+			height: 60px;
+		}
+
+		header{
+			position: sticky;
+			top: 0;
+			z-index: 1000;
+			background: rgba(255, 255, 255, .75);
+		}
+
+		header .head .head1 .right{
+			line-height: 70px;
+		}
+
+	/*Search-box*/
+	header .head .head2 .search-box input{
+		border: none;
+		border: 3px solid white;
+		background: white;
+		border-radius: 20px;
+		outline: none;
+		padding-left: 10px;
+		height: 35px;
+		position: relative;
+		bottom: 4px;
+	}
+	header .head .head2 .search-box button{
+		height: 35px;
+		border: 3px solid white;
+		border-radius: 33px;
+		background: none;
+		color: var(--main-color1);
+		font-weight: 800;
+		position: relative;
+		top: 2px;
+	}
+	header .head .head2 .search-box button span{
+		font-size: 18px;
+		font-weight: 800;
+		position: relative;
+		bottom: 2px;
+	}
+	header .head .head2 .search-box button:hover{
+		background: var(--main-color1);
+	}
+	header .head .head2 .search-box button span{
+		color: white;
+	}
+	header .head .head2 .search-box button:hover span{
+		transition: var(--hover-transition);
+	}
+
+
+	/*Menu*/
+		#toggle{
+			display: none;
+		}
+		header .head .head2 .menu{
+			z-index: 1000;
+			position: relative;
+			bottom: 15px;
+			clear: both;
+		}
+		header .head .head2 .menu ul{
+			list-style-type: none;
+			text-align: center;
+			background: var(--main-color1);
+			height: 40px;
+			display: flex;
+			justify-content: space-around;
+		    list-style-type: none;
+		}
+		header .head .head2 .menu ul li{
+			line-height: 40px;
+			position: relative;
+		}
+		header .head .head2 .menu ul li a{
+			text-decoration: none;
+			padding: 10px 20px;
+			color: white;
+		}
+		header .head .head2 .menu ul li a:hover{
+			background-color: var(--main-color2);
+			transition: var(--hover-transition);
+		}
+
+	/*Sub-menu*/
+	header .head .head2 .menu li ul{
+	    display: none;
+	    list-style-type: none;
+	    width: 250px;
+	    height: 80px;
+	    position: absolute;
+	    background: #ecf0f1;
+	    text-align: left;
+	}
+	header .head .head2 .menu ul li:hover ul{
+		display: block;
+	}
+	header .head .head2 .menu li ul li a{
+		color: black;
+		width: 200px;
+
+	}
+	header .head .head2 .menu li ul li a:hover{
+		color: var(--main-color2);
+		background: #ecf0f1;
+	}
+
+/*DS Don hang*/
+#ds-donhang {
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    position: fixed;
+    z-index: 2000;
+    top: 69px;
+    right: 0;
+    display: none;
+    overflow: scroll;
+    animation-name: dsDHAnimate;
+    animation-duration: 0.5s;
+}
+
+#ds-donhang .donhang {
+    height: 100px;
+    display: flex;
+    margin: 5px;
+    border: 1px solid #bdc3c7;
+}
+
+#ds-donhang .donhang .thumbnail {
+    width: 30%;
+}
+
+#ds-donhang .donhang .body {
+    padding: 0 2px;
+}
+
+/*Login*/
+    #loginFrame, #register {
+        width: 40%;
+        background-color: white;
+        height: 100vh;
+        padding: 20px 2%;
+        margin: 0 auto;
+    }
+    #loginFrame form, #loginFrame form input, #loginFrame form button, #register input {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    #loginFrame form input, #register input {
+        width: 80%;
+        border: none;
+        border-bottom: 2px solid var(--form-color1);
+        outline: none;
+        margin-bottom: 10px;
+    }
+	#loginFrame form button, #register button{
+		background-color: var(--form-color1);
+		border: none;
+		padding: 5px 20px;
+		margin-bottom: 5px;
+		color: white;
+		border-radius: 5px;
+	}
+	#loginFrame form button:hover, #register button:hover{
+		opacity: 0.8;
+	}
+    #showpass-span {
+        opacity: 0;
+        cursor: pointer;
+    }
+    #eye {
+        opacity: 0;
+        position: relative;
+        left: 23px;
+    }
+
+    #password:valid ~ #showpass-span {
+        opacity: 1;
+    }
+
+/*Than trang*/
+	content .left, content .right{
+		float: left;
+	}
+	#line{
+		width: 80%;
+		height: 3px;
+		background-color: var(--main-color2);
+	}
+
+	/*Left*/
+		content .left{
+			width: 70%;
+			margin: 10px 0;
+		}
+
+		content .left .left-items{
+			padding: 10px 0.5%;
+			display: flex;
+			justify-content: flex-start;
+			flex-wrap: wrap;
+		}
+		content .left .left-items .left-item{
+			width: 32%;
+			margin: 10px 0.6%;
+			border: 2px solid var(--main-color1);
+		}
+		content .left .left-items .left-item .thumbnail-item{
+			overflow: hidden;
+            height: 200px;
+		}
+		content .left .left-items .left-item:hover img{
+			transform: scale(1.1);
+			opacity: 0.8;
+			transition: var(--hover-transition);
+		}
+		content .left .left-items .left-item h5{
+			height: 40px;
+		}
+		content .left .left-items .left-item .body-item .rate-call i{
+			color: #e67e22;
+		}
+		content .left .left-items .left-item .body-item .rate-call{
+			display: flex;
+			justify-content: space-between;
+		}
+		content .left .left-items .left-item .body-item .rate-call .call{
+			bottom: 6px;
+			position: relative;
+		}
+		content .left .left-items .left-item .body-item .rate-call a{
+			text-decoration: none;
+			color: red;
+		}
+		content .left .left-items .left-item .body-item .rate-call .call .material-symbols-outlined{
+			position: relative;
+			top: 5px;
+		}
+		content .left .left-items .left-item button{
+			background-color: var(--main-color1);
+			border: none;
+			width: 100%;
+			padding: 5px 0;
+			margin-top: -20px;
+            color: white;
+            cursor: pointer;
+		}
+
+        content .left .sotrang{
+            padding: 0 2%;
+            font-size: 20px;
+        }
+        content .left .sotrang button{
+            padding: 5px 10px;
+            border: 2px solid var(--form-color1);
+            background: none;
+        }
+        content .left .sotrang button:hover{
+            background-color: #bdc3c7;
+        }
+	/*Right*/
+		content .right{
+			width: 30%;
+			margin: 10px auto;
+			background-color: white;
+		}
+		content .right h4{
+			padding: 5px 0;
+			text-align: center;
+			color: white;
+			background: var(--main-color1);
+		}
+
+		content .right .categories{
+			margin-bottom: 10px;
+			overflow-y: auto;
+			height: 300px;
+		}
+		content .right .categories table{
+			width: 100%;
+		}
+		content .right .categories table th{
+			border: 2px solid grey;
+			padding: 5px;
+			cursor: pointer;
+		}
+		content .right .categories table td{
+			border: 1px solid #bdc3c7;
+		}
+		content .right .categories table td a{
+			padding: 5px;
+			display: block;
+			text-decoration: none;
+			color: black;
+		}
+		content .right .categories table td:hover{
+			background-color: #bdc3c7;
+		}
+
+		content .right .right-items-1{
+			border: 1px solid #bdc3c7;
+			padding: 10px 1%;
+			height: 300px;
+			overflow-y: auto;
+			margin-bottom: 10px;
+		}
+		content .right .right-items-1 .right-item{
+			border-bottom: 2px solid var(--main-color2);
+			display: flex;
+			margin-bottom: 10px;
+			cursor: pointer;
+		}
+		content .right .right-items-1 .right-item .thumbnail{
+			width: 30%;
+		}
+		content .right .right-items-1 .right-item .body{
+			width: 70%;
+			padding-left: 1%;
+			position: relative;
+		}
+		content .right .right-items-1 .right-item .body button{
+			bottom: 0;
+			width: 100%;
+			color: white;
+			background-color: var(--form-color1);
+			border: none;
+			position: absolute;
+			height: 0px;
+			opacity: 0;
+		}
+		content .right .right-items-1 .right-item:hover button{
+			height: 26px;
+			opacity: 1;
+			transition: 0.5s;
+		}
+
+/*Phone fixed*/
+	.live-call{
+	    width: 180px;
+	    background-color: var(--main-color2);
+	    border-radius: 40px;
+	    height: 45px;
+	    position: fixed;
+	    left: 80%;
+	    bottom: 20px;
+	    z-index: 3000;
+	}
+	.live-call p{
+	    text-decoration: none;
+	    position: absolute;
+	    bottom: -5px;
+	    left: 30%;
+	    color: white;
+	}
+	.live-zalo{
+	    bottom: 80px;
+	    width: 0;
+	}
+	#up-top{
+	    height: 50px;
+	    position: fixed;
+	    z-index: 3000;
+	    bottom: 15px;
+	    left: 2%;
+	    border: 3px solid var(--main-color2);
+	    border-radius: 40px;
+	    cursor: pointer;
+	    opacity: 0;
+	}
+	#up-top.up-top-top{
+	    opacity: 0.7;
+	    transition: var(--hover-transition);
+	}
+
+/*Chan trang*/
+	footer{
+		background-color: var(--main-color1);
+		padding: 10px 10px 0 10px;
+		clear: both;
+		border-top: 20px solid var(--main-color2);
+	}
+	footer .left, footer .right{
+		float: left;
+		width: 50%;
+	}
+	footer .bottom{
+		clear: both;
+		text-align: center;
+		padding: 5px 0;
+		color: white;
+		border-top: 2px solid white;
+	}
+		/*Left*/
+		footer .left .infor{
+			color: white;
+		}
+		footer .left .infor-title{
+			margin-bottom: 30px;
+		}
+		footer .left a:hover{
+			opacity: 0.5;
+			transition: var(--hover-transition);
+		}
+
+		/*Right*/
+			footer .right .infor{
+				color: white;
+			}
+			footer .right .infor-title{
+				margin-bottom: 30px;
+			}
+			footer .right .infor li a{
+				text-decoration: none;
+				color: white;
+			}
+			footer .right .infor li a span{
+				line-height: 15px;
+				top: 5px;
+				position: relative;
+			}
+			footer .right ul{
+				list-style-type: none;
+			}
+			footer .right .infor li a:hover{
+				text-decoration: underline;
+				transition: 1s;
+			}
+
+		/*Under contact*/
+		footer .email-contact{
+			clear: both;
+			margin-bottom: 20px;
+		}
+		footer .email-contact button{
+			border: 1px solid black;
+			padding: 0 15px;
+		}
+
+/*Animation*/
+	@keyframes loginAnimate {
+        0%{
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        100%{
+            transform: translateY(0%);
+            opacity: 1;
+        }
+    }
+    @keyframes dsDHAnimate {
+        0% {
+            height: 0px;
+        }
+
+        100% {
+            height: 400px;
+        }
+    }
+
+/*Responsive*/
+	@media screen and (max-width:768px){
+		/*Head*/
+			header{
+				height: 135px;
+			}
+			header h3{
+				font-size: 18px;
+			}
+			header .head .left .title{
+				display: none;
+			}
+			#title-mobile{
+				display: block;
+			}
+
+			/*Menu*/
+		    #main-menu{
+		    	flex-direction: column;
+		    }
+		    #menu li a{
+		        text-align: center;
+		    }
+		    #menu{
+		    	display: none;
+		    	height: 245px;
+		    }
+		    #toggle{
+		    	display: block;
+		    	line-height: 50px;
+		    }
+
+	    /*Nav*/
+		    nav{
+		    	display: flex;
+		    	justify-content: space-between;
+		    }
+		    .search-box .input-text{
+		    	width: 200px;
+		    }
+
+		/*Than trang*/
+			content .right, content .left{
+				clear: both;
+				width: 100%;
+			}
+			content .left .left-items .left-item{
+				width: 49%;
+				margin: 10px 0.5%;		
+			}
+
+		/* Live-Call */
+		    .live-call{
+		        width: 40px;
+		        background: none;
+		    }
+		    .live-call span{
+		    	background-color: var(--main-color2);
+		    	padding: 10px;
+		    	border-radius: 10px;
+		    }
+		    .live-call p{
+		        display: none;
+		    }
+	
+		/*Chan trang*/
+			footer .right, footer .left{
+				width: 100%;
+				clear: both;
+			}
+	}

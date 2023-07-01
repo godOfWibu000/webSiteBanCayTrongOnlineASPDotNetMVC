@@ -1,0 +1,51 @@
+.left .danhgia-sanpham .sanpham{
+	display: flex;
+	height: 150px;
+}
+
+.left .danhgia-sanpham .sanpham .thumbnail{
+	width: 30%;
+}
+
+.left .danhgia-sanpham .sanpham .body{
+	width: 70%;
+	padding: 10px 2%;
+}
+
+/*Danh gia*/
+.left .danhgia-sanpham .danhgia .sosao{
+	color: #e67e22;
+	font-size: 30px;
+	position: relative;
+	bottom: 25px;
+}
+.left .danhgia-sanpham .danhgia .sosao .star{
+	position: relative;
+	top: 45px;
+	opacity: 1;
+}
+.left .danhgia-sanpham .danhgia .sosao i{
+	cursor: pointer;
+}
+.left .danhgia-sanpham .danhgia .sosao input{
+	border: none;
+	margin-left: 5px;
+	outline: none;
+}
+
+.left .danhgia-sanpham .danhgia .comment textarea{
+	width: 90%;
+	height: 200px;
+	padding: 5px;
+	border: 2px solid var(--form-color1);
+	border-radius: 5px;
+	outline: none;
+	font-size: 20px;
+}
+.left .danhgia-sanpham button{
+	width: 90%;
+	font-size: 20px;
+	border: none;
+	background-color: var(--form-color1);
+	color: white;
+}

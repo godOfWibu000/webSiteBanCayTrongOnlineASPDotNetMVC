@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Kết quả tìm kiếm cho " + "'" + @ViewBag.tuKhoa + "'";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+}
+
+<div class="left">
+    <h3>Kết quả tìm kiếm cho '@ViewBag.tuKhoa'</h3>
+    <div id="line"></div>
+    <div class="left-items">
+    @{
+        string tuKhoa = ViewBag.tuKhoa;
+        var kqtk = (from SanPham in db.SanPhams
+                    where SanPham.TenSP.IndexOf(tuKhoa) >= 0
+                    select SanPham).ToList();
+        foreach (var item in kqtk)
+        {
+            <div class="left-item">
+                <div class="thumbnail-item">
+                    <img src="~/Content/img/@item.Img1" width="100%">
+                </div>
+
+                <div class="body-item">
+                    <h5>@string.Format("{0:#,0}", item.TenSP)</h5>
+                    <div class="rate-call">
+                        <div class="rate">
+                            <span class="rate-number">@string.Format("{0:#,0}", item.SoSao)</span><span><i class="fas fa-star"></i></span>
+                        </div>
+                        <div class="call">
+                            <a href="tel:0969866534">
+                                <span class="material-symbols-outlined">phone_in_talk</span>
+                                <span>0123.xxx.xxx</span>
+                            </a>
+                        </div>
+                    </div>
+                    <p>@string.Format("{0:#,0}", item.GiaBan) đ</p>
+
+                    <button><a href="/Home/ChiTietSP/?id=@item.MaSP&Login=@ViewBag.Login">Chi tiết</a></button>
+                </div>
+            </div>
+        }
+    }
+</div>
+</div>

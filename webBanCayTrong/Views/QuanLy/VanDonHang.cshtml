@@ -1,0 +1,78 @@
+﻿
+@{
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Vận đơn hàng</title>
+    <style>
+        .container{
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .container table{
+            border-collapse: collapse;
+            width: 80%;
+            text-align: center;
+        }
+        .container table th, td{
+            border: 1px solid grey;
+            padding: 5px 25px;
+        }
+        .container table .link{
+            border: none;
+            padding: 0;
+        }
+        .container button{
+            padding: 3px 20px;
+            border: 0;
+            cursor: pointer;
+            color: white;
+            background-color: #00cec9;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>Tìm người vận chuyển cho đơn hàng </h3>
+
+        @{
+            var shippers = (from shipper in db.Shippers
+                            select shipper).ToList();
+
+            <table>
+                <tr>
+                    <th>Mã shipper</th>
+                    <th>Tên shipper</th>
+                    <th>Số điện thoại</th>
+                    <th>Số đơn hàng</th>
+                </tr>
+                @foreach(var item in shippers)
+                {
+                <tr>
+                    <td>@item.MaShipper</td>
+                    <td>@item.TenShipper</td>
+                    <td>@item.SDT</td>
+
+                    @{ 
+                        var soDG = (from dg in db.DonGiaos
+                                    select dg).Count();
+                        <td>@soDG</td>
+                    }
+
+                    <td class="link"><a href="~/QuanLy/ChiTietNguoiVanChuyen/?id=@item.MaShipper"><button>Xem chi tiết</button></a></td>
+                    <td class="link"><a href="~/QuanLy/ChiDinhShipper/?id=@ViewBag.id&MaShipper=@item.MaShipper"><button>Chỉ định</button></a></td>
+                </tr>
+                }
+            </table>
+
+        }
+    </div>
+</body>
+</html>

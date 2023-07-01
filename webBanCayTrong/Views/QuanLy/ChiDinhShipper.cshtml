@@ -1,0 +1,30 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Chỉ định Shipper - Mã: @ViewBag.MaShipper</title>
+</head>
+<body>
+    <div>
+        <form method="post" action="~/QuanLy/ChiDinhShipper">
+            <label>Mã đơn hàng:</label><br />
+            <input type="text" name="MaDH" value="@ViewBag.id" readonly /><br />
+            <label>Mã Shipper:</label><br />
+            <input type="text" name="MaShipper" value="@ViewBag.MaShipper" readonly /><br />
+            <label>Ngày giao hàng:</label><br />
+            <input type="date" name="NgayGiao" value="@string.Format("{0:yyyy-MM-dd}", ViewBag.ngayGiao)" /><br />
+            <label>Ngày nhận hàng:</label><br />
+            <input type="date" name="NgayNhan" value="@string.Format("{0:yyyy-MM-dd}", ViewBag.ngayNhan)" /><br />
+
+            <br />
+            <button>Lưu</button>
+        </form>
+    </div>
+</body>
+</html>

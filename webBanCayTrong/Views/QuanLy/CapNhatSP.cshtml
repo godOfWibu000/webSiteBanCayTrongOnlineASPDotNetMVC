@@ -1,0 +1,78 @@
+﻿@model webBanCayTrong.Models.SanPham
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/quantri.css">
+
+    <title>Cập nhật sản phẩm</title>
+</head>
+<body style="background-color: #27ae60;">
+    @using (Html.BeginForm())
+    {
+        <div id="capnhat-sp">
+            <div class="form-horizontal">
+                <h2 style="text-align: center;margin-bottom: 30px;">Cập nhật sản phẩm:</h2>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.MaSP)
+
+                <div class="form-group">
+                    <label>Mã sản phẩm:</label><br />
+                    <input type="text" id="MaSP" name="MaSP" value="@Model.MaSP" readonly />
+                    <div style="color: red;">
+                        @Html.ValidationMessageFor(model => model.MaSP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Tên sản phẩm:</label><br />
+                    <input type="text" id="TenSP" name="TenSP" value="@Model.TenSP" />
+                    <div style="color: red;">
+                        @Html.ValidationMessageFor(model => model.TenSP, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Giá bán:</label><br />
+                    <input type="text" id="GiaBan" name="GiaBan" value="@Model.GiaBan" />
+                    <div style="color: red;">
+                        @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Số lượng nhập:</label><br />
+                    <input type="text" id="SLNhap" name="SLNhap" value="@Model.SLNhap" />
+                    <div style="color: red;">
+                        @Html.ValidationMessageFor(model => model.SLNhap, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Giá nhập:</label><br />
+                    <input type="text" id="GiaNhap" name="GiaNhap" value="@Model.GiaNhap" />
+                    <div style="color: red;">
+                        @Html.ValidationMessageFor(model => model.GiaNhap, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <input type="file" accept=".jpg, .png" />
+
+                <div class="form-group button">
+                    <button class="reset" type="button">Đặt lại</button>
+                    <button class="save" type="submit">Lưu</button>
+                    <button class="close" type="button">Thoát</button>
+                </div>
+            </div>
+        </div>
+    }
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+﻿@{
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Css -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/quantri.css">
+
+    <!-- Shotcut -->
+    <link rel="shortcut icon" type="image/png" href="~/Content/img/logo.png" />
+
+    <!-- Font google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap" rel="stylesheet">
+
+    <!-- Icon google -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+    <!-- Icon Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+
+    <title>Quản lý đơn hàng</title>
+    <body>
+        <div class="qlsp">
+            <div class="top">
+                <div class="left">
+                    <h3>Quản trị hệ thống bán cây trồng Online</h3>
+                    <h2>Cây giống Hoàng-Điệp-Lương</h2>
+                </div>
+                <div class="right">
+                    <a href="#">
+                        <span style="position: relative;top: 6px;" class="material-symbols-outlined">
+                            account_circle
+                        </span> admin
+                    </a>
+                </div>
+            </div><br>
+
+            <div class="logo">
+                <img src="~/Content/img/logo.png" width="70px">
+            </div>
+
+            <div style="display: flex;">
+                <h3 style="width: 50%;color: white;padding-top: 20px;">Danh sách đơn hàng</h3>
+            </div>
+
+            <div>
+                <input type="text" id="locSP" onkeyup="locSP()" placeholder="Lọc theo từ khóa...">
+                <span class="locdh">
+                    @{
+                        if (ViewBag.loc == 1)
+                        {
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=1"><input type="radio" name="loc" checked />Chưa xác nhận</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=2"><input type="radio" name="loc" />Đang kiểm tra</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=3"><input type="radio" name="loc" />Đang giao</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=4"><input type="radio" name="loc" />Đã giao</a></span>
+                        }
+                        else if (ViewBag.loc == 2)
+                        {
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=1"><input type="radio" name="loc" />Chưa xác nhận</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=2"><input type="radio" name="loc" checked/>Đang kiểm tra</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=3"><input type="radio" name="loc" />Đang giao</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=4"><input type="radio" name="loc" />Đã giao</a></span>
+                        }
+                        else if (ViewBag.loc == 3)
+                        {
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=1"><input type="radio" name="loc" />Chưa xác nhận</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=2"><input type="radio" name="loc" />Đang kiểm tra</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=3"><input type="radio" name="loc" checked />Đang giao</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=4"><input type="radio" name="loc" />Đã giao</a></span>
+                        }
+                        else
+                        {
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=1"><input type="radio" name="loc" />Chưa xác nhận</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=2"><input type="radio" name="loc" />Đang kiểm tra</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=3"><input type="radio" name="loc" />Đang giao</a></span>
+                            <span><a href="~/QuanLy/QuanLyDonHang/?loc=4"><input type="radio" name="loc" checked />Đã giao</a></span>
+                        }
+                    }
+                </span>
+            </div>
+            <table class="dssp">
+                <tr>
+                    <th>Mã đơn hàng</th>
+                    <th>Tên đơn hàng</th>
+                    <th>Mã khách hàng</th>
+                    <th>Tổng tiền</th>
+                    <th>Thời gian</th>
+                    <th>Trạng thái</th>
+                </tr>
+                <tbody id="sp">
+                    @{
+                        var dsDonHang = (from dh in db.DonHangs
+                                         join sp in db.SanPhams on dh.MaSP equals sp.MaSP
+                                         select new { dh.MaDH, dh.SoLuong, dh.MaKH, dh.ThoiGian, dh.SoTien, sp.TenSP, dh.TrangThai }).ToList();
+                        foreach (var item in dsDonHang)
+                        {
+                            <tr>
+                                <td><a href="~/QuanLy/ChiTietQuanLyDH/?id=@item.MaDH">@item.MaDH</a></td>
+                                <td><a href="~/QuanLy/ChiTietQuanLyDH/?id=@item.MaDH">@item.TenSP<span> (<span>x</span>@item.SoLuong<span>)</span></span></a></td>
+                                <td><a href="~/QuanLy/ChiTietQuanLyDH/?id=@item.MaDH">@item.MaKH</a></td>
+                                <td><a href="~/QuanLy/ChiTietQuanLyDH/?id=@item.MaDH">@item.SoTien<span>.000 đ</span></a></td>
+                                <td><a href="~/QuanLy/ChiTietQuanLyDH/?id=@item.MaDH">@item.ThoiGian</a></td>
+                                <td><a href="~/QuanLy/ChiTietQuanLyDH/?id=@item.MaDH">@item.TrangThai</a></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <div class="bot">
+                <div class="left">
+                    <p>Phát triển bởi HLSoft</p>
+                </div>
+
+                <div class="right">
+                    <p>©Bản quyền thuộc về Cây giống Hoàng-Điệp-Lương</p>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+
+        <!-- Js -->
+        <script src="~/Content/js/main.js"></script>
+    </body>
+</html>

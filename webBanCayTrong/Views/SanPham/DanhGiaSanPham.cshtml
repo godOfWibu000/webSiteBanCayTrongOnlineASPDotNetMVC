@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Đánh giá sản phẩm " + Model.TenSP;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="left">
+    <h3>Đánh giá sản phẩm</h3>
+    <div id="line"></div>
+    <div class="danhgia-sanpham">
+        <hr>
+        <div class="sanpham">
+            <div class="thumbnail">
+                <img src="~/Content/img/@Model.Img1" width="100%" height="150px">
+            </div>
+            <div class="body">
+                <h5>@Model.TenSP</h5>
+                <p>@Model.GiaBan<span>.000 đ</span></p>
+            </div>
+        </div>
+        <hr>
+
+
+        <form class="danhgia" method="post" action="~/SanPham/DanhGiaSanPham/?Login=@ViewBag.Login&id=@Model.MaSP">
+
+            @{
+                if (ViewBag.kTra == "Đã đánh giá")
+                {
+                    <h4>Đánh giá của bạn</h4>
+                    <div class="sosao" style="margin-top: 30px;">
+                        <span>@ViewBag.soSao</span><i class="fas fa-star"></i>
+                    </div>
+
+                    <div class="comment">
+                        <p>Bình luận</p>
+                        <h5>@ViewBag.comment</h5>
+                    </div>
+
+                    <p>Vào @ViewBag.thoiGianDG</p>
+
+                    <br />
+                    <h4><span class="material-symbols-outlined">done</span>@ViewBag.kTra</h4>
+                    <button type="button" style="opacity: 0.5;">Đánh giá</button>
+                }
+                else
+                {
+                    <h4>Đánh giá</h4>
+                    <div class="sosao">
+                        <div class="star">
+                            <i class="fas fa-star" onclick="star1()" id="star1"></i>
+                            <i class="fas fa-star" onclick="star2()" id="star2"></i>
+                            <i class="fas fa-star" onclick="star3()" id="star3"></i>
+                            <i class="fas fa-star" onclick="star4()" id="star4"></i>
+                            <i class="fas fa-star" onclick="star5()" id="star5"></i>
+                        </div>
+
+                        <div class="line-star">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <input id="number" type="text" name="SoSao" value="5" readonly>
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <p>Bình luận</p>
+                        <textarea placeholder="Viết bình luận..." name="BinhLuan"></textarea>
+                    </div>
+
+                    <br>
+                    <button type="submit">Đánh giá</button>
+                }
+            }
+        </form>
+    </div>
+</div>
+
+<!-- JS -->
+<script type="text/javascript">
+    var number = document.getElementById('number');
+
+    function star1() {
+        number.value = '1';
+        document.getElementById('star2').style.opacity = '0.1';
+        document.getElementById('star2').style.opacity = '0.1';
+        document.getElementById('star3').style.opacity = '0.1';
+        document.getElementById('star4').style.opacity = '0.1';
+        document.getElementById('star5').style.opacity = '0.1';
+    }
+
+    function star2() {
+        number.value = '2';
+        document.getElementById('star2').style.opacity = '0.9';
+        document.getElementById('star3').style.opacity = '0.1';
+        document.getElementById('star4').style.opacity = '0.1';
+        document.getElementById('star5').style.opacity = '0.1';
+    }
+
+    function star3() {
+        number.value = '3';
+        document.getElementById('star2').style.opacity = '0.9';
+        document.getElementById('star3').style.opacity = '0.9';
+        document.getElementById('star4').style.opacity = '0.1';
+        document.getElementById('star5').style.opacity = '0.1';
+    }
+
+    function star4() {
+        number.value = '4';
+        document.getElementById('star2').style.opacity = '0.9';
+        document.getElementById('star3').style.opacity = '0.9';
+        document.getElementById('star4').style.opacity = '0.9';
+        document.getElementById('star5').style.opacity = '0.1';
+    }
+
+    function star5() {
+        number.value = '5';
+        document.getElementById('star2').style.opacity = '0.9';
+        document.getElementById('star3').style.opacity = '0.9';
+        document.getElementById('star4').style.opacity = '0.9';
+        document.getElementById('star5').style.opacity = '0.9';
+    }
+</script>

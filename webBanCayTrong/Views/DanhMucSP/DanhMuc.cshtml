@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Danh mục " + ViewBag.tenDanhMuc;
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+}
+
+<div class="left">
+    <h3>
+        Danh mục @ViewBag.tenDanhMuc<h3>
+            <div id="line"></div>
+            <div class="left-items">
+                @{
+                    int maDanhMuc = ViewBag.maDanhMuc;
+                    var sanPham = (from SanPham in db.SanPhams
+                                   where SanPham.MaDanhMuc == maDanhMuc
+                                   orderby SanPham.SoSao descending
+                                   select SanPham).ToList();
+                    foreach (var item in sanPham)
+                    {
+                        <div class="left-item">
+                            <div class="thumbnail-item">
+                                <img src="~/Content/img/@item.Img1" width="100%">
+                            </div>
+
+                            <div class="body-item">
+                                <h5>@string.Format("{0:#,0}", item.TenSP)</h5>
+                                <div class="rate-call">
+                                    <div style="font-size: 16px;" class="sosao">
+                                        <span class="rate-number">@item.SoSao</span><span><i class="fas fa-star"></i></span>
+                                    </div>
+                                    <div style="font-size: 16px;" class="call">
+                                        <a href="tel:0969866534">
+                                            <span class="material-symbols-outlined">phone_in_talk</span>
+                                            <span>0123.xxx.xxx</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p style="font-size: 16px;">@string.Format("{0:#,0}", item.GiaBan).000 đ</p>
+
+                                <a style="font-size: 16px;" class="chitiet" href="/Home/ChiTietSP/?id=@item.MaSP&Login=@ViewBag.Login"><button>Chi tiết</button></a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+</div>
+

@@ -1,0 +1,116 @@
+.left .them-sanpham-vao-gio-hang{
+	padding: 10px 2%;
+}
+.left .them-sanpham-vao-gio-hang .sanpham{
+	display: flex;
+	justify-content: space-around;
+}
+.left .them-sanpham-vao-gio-hang .sanpham .thumbnail{
+	width: 30%;
+	height: 150px;
+}
+.left .them-sanpham-vao-gio-hang .sanpham .body{
+	width: 70%;
+	margin: 0 2%;
+}
+.left .them-sanpham-vao-gio-hang .tong-tien{
+	margin: 10px 0;
+}
+.left .them-sanpham-vao-gio-hang .tong-tien .cong-tru-sp{
+	font-size: 20px;
+}
+.left .them-sanpham-vao-gio-hang .tong-tien .cong-tru-sp button{
+	border: 1px solid grey;
+	padding: 0px 10px;
+}
+.left .them-sanpham-vao-gio-hang .add{
+	width: 100%;
+	background-color: var(--form-color1);
+	margin: 10px 0;
+	padding: 5px 0;
+	border: none;
+	color: white;
+	border-radius: 5px;
+}
+.left .them-sanpham-vao-gio-hang .tong-tien .cong-tru-sp button:hover{
+	background-color: grey;
+	color: white;
+}
+.left .them-sanpham-vao-gio-hang input{
+	border: none;
+	width: 25px;
+	text-align: center;
+}
+
+.left .ds-donhang{
+	padding: 0 2%;
+}
+.left .ds-donhang .menu-donhang ul{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.left .ds-donhang .menu-donhang ul li{
+	list-style-type: none;
+	cursor: pointer;
+	width: 25%;
+	text-align: center;
+}
+
+.left .ds-donhang .ds-donhang-frame{
+	width: 100%;
+}
+
+.left .ds-donhang .ds-donhang-frame a{
+    text-decoration: none;
+    color: white;
+}
+#donhang-choxacnhans,#donhang-dangkiemtras,#donhang-danggiaos,#donhang-dagiaos{
+	
+}
+#donhang-dangkiemtras,#donhang-danggiaos,#donhang-dagiaos{
+	display: none;
+}
+.left .ds-donhang .ds-donhang-frame .donhang{
+	display: flex;
+	height: 100px;
+}
+.left .ds-donhang .ds-donhang-frame .donhang .thumbnail{
+	width: 20%;
+}
+.left .ds-donhang .ds-donhang-frame .donhang .thumbnail .view-more{
+	position: relative;
+	border: none;
+	border-radius: 5px;
+	bottom: 63px;
+	left: 17px;
+	opacity: 0;
+}
+.left .ds-donhang .ds-donhang-frame .donhang .thumbnail:hover{
+	opacity: 0.7;
+	transition: 1s;
+}
+.left .ds-donhang .ds-donhang-frame .donhang .thumbnail:hover .view-more{
+	opacity: 1;
+	transition: 1s;
+}
+.left .ds-donhang .ds-donhang-frame .donhang .body{
+	width: 60%;
+	padding-left: 2%;
+}
+.left .ds-donhang .ds-donhang-frame .donhang .body h6 {
+    color: #16a085;
+}
+.left .ds-donhang .ds-donhang-frame .donhang .button{
+	width: 20%;
+	padding: 10px;
+}
+.left .ds-donhang .ds-donhang-frame .donhang .button button{
+	width: 100%;
+	margin-bottom: 10px;
+	background-color: var(--form-color1);
+	border: none;
+	color: white;
+	border-radius: 5px;
+}

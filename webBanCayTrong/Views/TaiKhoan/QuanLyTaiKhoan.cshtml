@@ -1,0 +1,338 @@
+﻿
+@{
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+    ViewBag.Title = "Quản lý tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string tenTK = ViewBag.Login;
+}
+
+<div class="left">
+    <h3>Quản lý tài khoản</h3>
+    <div id="line"></div>
+
+    <div class="menu-quanlytk">
+        <div class="item-menu-quanlytk" id="quanlytaikhoan-btn" onclick="quanLyTaiKhoan()">
+            <div class="icon">
+                <span class="material-symbols-outlined">
+                    admin_panel_settings
+                </span>
+            </div>
+
+            <h5>Quản lý tài khoản</h5>
+        </div>
+
+        <div class="item-menu-quanlytk" id="quanlyttcanhan-btn" onclick="quanLyTTCaNhan()">
+            <div class="icon">
+                <span class="material-symbols-outlined">person</span>
+            </div>
+
+            <h5>Thông tin cá nhân</h5>
+        </div>
+
+        <div class="item-menu-quanlytk" id="quanlydonhang-btn" onclick="quanLyDH()">
+            <div class="icon">
+                <span class="material-symbols-outlined">order_approve</span>
+            </div>
+
+            <h5>Quản lý đơn hàng</h5>
+        </div>
+
+        <div class="item-menu-quanlytk" id="quanlyyeuthich-btn" onclick="quanLyYeuThich()">
+            <div class="icon">
+                <span class="material-symbols-outlined">favorite</span>
+            </div>
+
+            <h5>Yêu thích</h5>
+        </div>
+        <div class="item-menu-quanlytk" id="quanlydanhgia-btn" onclick="quanLyDanhGia()">
+            <div class="icon">
+                <span class="material-symbols-outlined">rate_review</span>
+            </div>
+
+            <h5>Đánh giá</h5>
+        </div>
+    </div>
+
+    <div class="ql-frame quanlytk-frame" id="quanly-taikhoan">
+        <h5>Thông tin tài khoản</h5>
+        @{
+            var tks = (from tk in db.TaiKhoans
+                       where tk.TenTK == tenTK
+                       select tk).ToList();
+            foreach (var item in tks)
+            {
+                <div class="avatar">
+                    <span>
+                        <img src="~/Content/img/@item.Avatar" width="100%">
+                    </span>
+                    <span>
+                        <button class="button-ql">Thay ảnh</button>
+                    </span>
+                </div>
+
+                <form method="post" action="~/TaiKhoan/LuuTTTK">
+                    <label>Tên tài khoản: </label><input type="text" name="TenTK" value="@item.TenTK" readonly /><br /><br />
+                    <label>Tên hiển thị:</label><input required type="text" name="TenHienThi" value="@item.TenHienThi"><br><br>
+                    <label style="width: 117px;">Email:</label>
+                    <input required type="text" name="Email" value="@item.Email">
+                    <span><a href="#">Xác minh</a></span>
+                    <br>
+                    <br>
+                    <p>Loại tài khoản: @item.LoaiTK</p>
+                    <a><button type="button" class="button-ql">Đổi mật khẩu</button></a>
+                    <button type="submit" class="button-ql">Lưu</button>
+                </form>
+            }
+        }
+    </div>
+
+    <div class="ql-frame ttcanhan-frame" id="quanly-ttcanhan">
+        <h5>Thông tin cá nhân</h5>
+
+        @{
+            var khs = (from kh in db.KhachHangs
+                       where kh.TenTK == tenTK
+                       select kh).ToList();
+
+            foreach (var item in khs)
+            {
+                <form method="post" action="~/TaiKhoan/LuuTTKH">
+                    <input style="display: none;" type="text" name="TenTK" value="@tenTK" />
+                    <div>
+                        <label>Họ tên:</label>
+                        <input required type="text" name="TenKH" value="@item.TenKH">
+                    </div>
+                    <div>
+                        <label>Ngày sinh:</label>
+                        <input type="date" name="NgaySinh" value="@string.Format("{0:yyyy-MM-dd}", item.NgaySinh)">
+                    </div>
+                    <div>
+                        <label>Số điện thoại:</label>
+                        <input required type="tel" name="SDT" value="@item.SDT">
+                    </div>
+                    <div>
+                        <label>Địa chỉ:</label>
+                        <input required type="text" name="DiaChi" value="@item.DiaChi">
+                    </div>
+
+                    <button type="submit" class="button-ql">Lưu</button>
+                </form>
+            }
+        }
+    </div>
+
+    <div class="ql-frame ds-donhang" id="quanly-dh">
+        <div class="menu-donhang">
+            <h5>Danh sách đơn hàng</h5>
+            <ul>
+                <li id="choxacnhan-btn" onclick="choXacNhan()" style="border-bottom: 2px solid red;">Chờ xác nhận</li>
+                <li id="dangkiemtra-btn" onclick="dangKiemTra()">Đang kiểm tra</li>
+                <li id="danggiao-btn" onclick="dangGiao()">Đang giao</li>
+                <li id="dagiao-btn" onclick="daGiao()">Đã giao</li>
+            </ul>
+        </div>
+
+        <div class="ds-donhang-frame" id="donhang-choxacnhans">
+            @{
+                var dHChoXacNhan = (from dhcxn in db.DonHangs
+                                    join sp in db.SanPhams on dhcxn.MaSP equals sp.MaSP
+                                    where dhcxn.TrangThai == "Chưa xác nhận"
+                                    select new { sp.Img1, sp.TenSP, dhcxn.MaDH, dhcxn.SoLuong, dhcxn.SoTien }).ToList();
+                foreach (var item in dHChoXacNhan)
+                {
+                    <hr>
+
+                    <div class="donhang">
+                        <div class="thumbnail">
+                            <img src="~/Content/img/@item.Img1" width="100%" height="100px">
+                            <button class="view-more">Xem chi tiết</button>
+                        </div>
+                        <div class="body">
+                            <h5>@item.TenSP<span>(x @item.SoLuong)</span></h5>
+                            <p>@item.SoTien<span>.000 đ</span></p>
+                            <h6>Đơn hàng đang trong trạng thái chờ xác nhận, nhấn "Mua ngay" để mua hàng</h6>
+                        </div>
+                        <div class="button">
+                            <a href="~/MuaHang/MuaNgay/?Login=@ViewBag.Login&id=@item.MaDH"><button>Mua ngay</button></a>
+                            <a href="~/MuaHang/XoaDH/?Login=@ViewBag.Login&id=@item.MaDH"><button>Xóa đơn hàng</button></a>
+                        </div>
+                    </div>
+
+                    <hr>
+                }
+            }
+        </div>
+
+        <div class="ds-donhang-frame" id="donhang-dangkiemtras">
+            @{
+                var dHDangKTra = (from dhdkt in db.DonHangs
+                                  join sp in db.SanPhams on dhdkt.MaSP equals sp.MaSP
+                                  where dhdkt.TrangThai == "Đang kiểm tra"
+                                  select new { sp.Img1, sp.TenSP, dhdkt.MaDH, dhdkt.SoLuong, dhdkt.SoTien }).ToList();
+                foreach (var item in dHDangKTra)
+                {
+                    <hr>
+
+                    <div class="donhang">
+                        <div class="thumbnail">
+                            <img src="~/Content/img/@item.Img1" width="100%" height="100px">
+                            <button class="view-more">Xem chi tiết</button>
+                        </div>
+                        <div class="body">
+                            <h5>@item.TenSP<span>(x @item.SoLuong)</span></h5>
+                            <p>@item.SoTien<span>.000 đ</span></p>
+                            <h6>Đang kiểm tra đơn hàng, bạn có thể thay đổi hoặc hủy đơn hàng bất cứ lúc nào</h6>
+                        </div>
+                        <div class="button">
+                            <button>Đổi thông tin</button>
+                            <button>Hủy đơn hàng</button>
+                        </div>
+                    </div>
+
+                    <hr>
+                }
+            }
+        </div>
+
+        <div class="ds-donhang-frame" id="donhang-danggiaos">
+            @{
+                var dHDangGiao = (from dhdg in db.DonHangs
+                                  join dg in db.DonGiaos on dhdg.MaDH equals dg.MaDH
+                                  join sp in db.SanPhams on dhdg.MaSP equals sp.MaSP
+                                  where dhdg.TrangThai == "Đang giao"
+                                  select new { sp.Img1, sp.TenSP, dhdg.MaDH, dhdg.SoLuong, dhdg.SoTien, dg.NgayNhanHang }).ToList();
+                foreach (var item in dHDangGiao)
+                {
+                    <hr>
+
+                    <div class="donhang">
+                        <div class="thumbnail">
+                            <img src="~/Content/img/@item.Img1" width="100%" height="100px">
+                            <button class="view-more">Xem chi tiết</button>
+                        </div>
+                        <div class="body">
+                            <h5>@item.TenSP<span>(x @item.SoLuong)</span></h5>
+                            <p>@item.SoTien<span>.000 đ</span></p>
+                            <h6>Đang vận chuyển, dự kiến nhận hàng vào @string.Format("{0:dd/MM/yyyy}", item.NgayNhanHang)</h6>
+                        </div>
+                        <div class="button">
+                            <button>Xem thông tin</button>
+                        </div>
+                    </div>
+
+                    <hr>
+                }
+            }
+        </div>
+
+        <div class="ds-donhang-frame" id="donhang-dagiaos">
+            @{
+                var dHDaGiao = (from dhdag in db.DonHangs
+                                join sp in db.SanPhams on dhdag.MaSP equals sp.MaSP
+                                where dhdag.TrangThai == "Đã giao"
+                                select new { sp.MaSP, sp.Img1, sp.TenSP, dhdag.MaDH, dhdag.SoLuong, dhdag.SoTien }).ToList();
+                foreach (var item in dHDaGiao)
+                {
+                    <hr>
+
+                    <div class="donhang">
+                        <div class="thumbnail">
+                            <img src="~/Content/img/@item.Img1" width="100%" height="100px">
+                            <button class="view-more">Xem chi tiết</button>
+                        </div>
+                        <div class="body">
+                            <h5>@item.TenSP<span>(x @item.SoLuong)</span></h5>
+                            <p>@item.SoTien<span>.000 đ</span></p>
+                            <h6>Bạn có thể đánh giá đơn hàng và mua tiếp sản phẩm</h6>
+                        </div>
+                        <div class="button">
+                            <a href="~/SanPham/DanhGiaSanPham/?Login=@ViewBag.Login&id=@item.MaSP"><button>Đánh giá</button></a>
+                            <a href="~/MuaHang/MuaHang/?Login=@ViewBag.Login&id=@item.MaSP"><button>Mua tiếp</button></a>
+                        </div>
+                    </div>
+
+                    <hr>
+                }
+            }
+        </div>
+    </div>
+
+    <div class="ql-frame ds-yeuthich" id="quanly-yeuthich">
+        <h5>Danh sách yêu thích</h5>
+        @{
+            var dsYeuThich = (from yeuThich in db.YeuThiches
+                              join sp in db.SanPhams on yeuThich.MaSP equals sp.MaSP
+                              where yeuThich.TenTK == tenTK
+                              select new { sp.Img1, sp.TenSP, sp.GiaBan, sp.MaSP, yeuThich.MaYeuThich }).ToList();
+            foreach (var item in dsYeuThich)
+            {
+                <hr>
+
+                <div class="yeuthich">
+                    <div class="thumbnail">
+                        <img src="~/Content/img/@item.Img1" width="100%" height="100px">
+                        <a href="~/Home/ChiTietSP/?id=@item.MaSP&Login=@ViewBag.Login"><button class="view-more">Xem chi tiết</button></a>
+                    </div>
+                    <div class="body">
+                        <h5>@item.TenSP</h5>
+                        <p>@item.GiaBan<span>.000 đ</span></p>
+                    </div>
+                    <div class="right">
+                        <span class="like">
+                            <i style="color: red;" class="fas fa-heart"></i><span>&nbsp;&nbsp;&nbsp;</span>
+                            <i class="fas fa-share-square"></i><span>&nbsp;&nbsp;&nbsp;</span>
+                            <span class="click-tuychon">
+                                <i class="fas fa-ellipsis-h"></i>
+                                <div class="tuychon">
+                                    <a href="~/TaiKhoan/XoaSPYeuThich/?Login=@ViewBag.Login&MaYT=@item.MaYeuThich"><button>Bỏ thích</button></a>
+                                    <a href="~/MuaHang/ThemVaoGioHang/?Login=@ViewBag.Login&Id=@item.MaSP"><button>Mua hàng</button></a>
+                                </div>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+                <hr>
+            }
+        }
+    </div>
+
+    <div class="ql-frame ds-danhgia" id="quanly-danhgia">
+        <h5>Đánh giá gần đây của bạn</h5>
+        <div class="danhgias">
+
+            @{
+                string Login = ViewBag.Login;
+                var danhGias = (from dg in db.DanhGias join sp in db.SanPhams on dg.MaSP equals sp.MaSP
+                                orderby dg.ThoiGianDG descending
+                                where dg.TenTK == Login
+                                select new { dg.SoSaoDG, dg.BinhLuanDG, dg.ThoiGianDG, sp.MaSP, sp.TenSP, sp.Img1 }).ToList();
+                foreach (var item in danhGias)
+                {
+                    <hr>
+                    <div class="danhgia">
+                        <a href="~/SanPham/ChiTietSanPham/?id=@item.MaSP&Login=@ViewBag.Login" class="top">
+                            <span class="thumbnail"><img src="~/Content/img/@item.Img1" width="70px" height="50px"></span>
+                            <span> @item.TenSP</span>
+                        </a>
+                        <div class="bot">
+                            <span style="font-size: 20px;color: #e67e22;">@item.SoSaoDG<i class="fas fa-star"></i></span>
+                            <h5>@item.BinhLuanDG</h5>
+                            <p>@item.ThoiGianDG</p>
+                        </div>
+                    </div>
+                    <hr>
+                }
+            }
+        </div>
+    </div>
+
+    <div style="width: 100%;float: right;">
+        <div style="height: 3px;background-color: var(--main-color2);"></div>
+        <a href="~/Home/Index" style="margin-right: 2%;float: right;color: var(--main-color2);cursor: pointer;">
+            <span>Đăng xuất</span>
+            <span style="position: relative;top: 5px;" class="material-symbols-outlined">logout</span>
+        </a>
+    </div>
+</div>
+

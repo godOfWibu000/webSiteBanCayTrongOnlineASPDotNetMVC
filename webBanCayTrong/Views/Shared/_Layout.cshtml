@@ -1,0 +1,303 @@
+﻿@{ 
+    var db = new webBanCayTrong.Models.QuanLyBanCayTrongEntities();
+    int sldh = 0;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Css -->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/main.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/login.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/contact.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/chitietsp.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/them-sp-vao-gio-hang.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/quanlytaikhoan.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/css/danhgia.css">
+
+    <!-- Shotcut -->
+    <link rel="shortcut icon" type="image/png" href="~/Content/img/logo.png" />
+
+    <!-- Font google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap" rel="stylesheet">
+
+    <!-- Icon google -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+    <!-- Icon Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
+    <title>@ViewBag.Title</title>
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+</head>
+<body onload="rate()">
+    <div class="webapp">
+        <!-- Dau trang -->
+        <header>
+            <!-- Header -->
+            <div class="head">
+                <div class="head1">
+                    <div class="left">
+                        <a href=""><img src="~/Content/img/logo.png" width="60px"></a>
+                        <h2 class="title" style="line-height: 60px;">HLGarden-Cây giống chất lượng</h2>
+                    </div>
+                    <div class="right">
+                        @{
+                            if (ViewBag.Login == null || ViewBag.Login == "")
+                            {
+                                <a href="~/TaiKhoan/Login" onclick="showLogin()" style="cursor: pointer;text-decoration: none; font-size: 18px;margin-right: 10px;color: var(--main-color1);">
+                                    <span style="top: 5px;position: relative;" class="material-symbols-outlined">login</span><span id="username"> Đăng nhập </span>
+                                </a>
+                            }
+                            else
+                            {
+                                string tenTK = ViewBag.Login;
+                                var taiKhoan = (from tk in db.TaiKhoans
+                                                where tk.TenTK == tenTK
+                                                select tk).ToList();
+                                foreach (var item in taiKhoan)
+                                {
+                                    <a href="~/TaiKhoan/QuanLyTaiKhoan/?Login=@ViewBag.Login" onclick="showLogin()" style="cursor: pointer;text-decoration: none; font-size: 18px;margin-right: 10px;color: var(--main-color1);">
+                                        <span style="top: 5px;position: relative;" class="material-symbols-outlined">account_circle</span><span id="username"> @string.Format("{0:#,0}", item.TenTK)</span>
+                                    </a>
+                                }
+                            }
+                        }
+                        <div onclick="dsDonHang()" style="color: blue;cursor: pointer;">
+                            <span style="line-height: 70px; font-size: 40px;" class="material-symbols-outlined">shopping_cart</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DS don hang -->
+                <div id="ds-donhang">
+                    @{
+                        string tenTK1 = ViewBag.Login;
+                        var dsDonHang = (from DSDH in db.DonHangs join SP in db.SanPhams on DSDH.MaSP equals SP.MaSP
+                                         where DSDH.TenTK == tenTK1 && DSDH.TrangThai == "Chưa xác nhận"
+                                         select new { SP.TenSP, SP.Img1, DSDH.SoLuong, DSDH.SoTien }).ToList();
+                        foreach (var item in dsDonHang)
+                        {
+                                <div class="donhang">
+                                    <div class="thumbnail">
+                                        <img src="~/Content/img/@item.Img1" width="70px" height="100%">
+                                    </div>
+                                    <div class="body">
+                                        <h5 class="title">@item.TenSP (x @string.Format("{0:#,0}", item.SoLuong))</h5>
+                                        <p>@string.Format("{0:#,0}", item.SoTien).000 đ</p>
+                                    </div>
+                                </div>
+                                sldh++;
+                        }
+                    }
+                </div>
+
+                <span style="background-color: #e74c3c;position: relative;float: right; padding: 0 3px; color: white;border-radius: 4px;bottom: 45px;">@string.Format("{0:#,0}", sldh)</span>
+                <div class="head2">
+                    <!-- Title moblie -->
+                    <h3 id="title-mobile">Cây giống Hoàng-Điệp-Lương</h3>
+
+                    <!-- Search -->
+                    <nav>
+                        <div id="toggle">
+                            <span class="material-symbols-outlined">menu</span><span style="bottom: 6px;position: relative;">Menu</span>
+                        </div>
+                    </nav>
+
+                    <!-- Menu -->
+                    <div class="menu">
+                        <ul id="menu">
+                            <div id="main-menu" style="display: flex;">
+                                <li><a href="~/Home/Index/?Login=@ViewBag.Login">Trang chủ</a></li>
+                                <li>
+                                    <a href="#">Sản phẩm<span style="position: relative;top: 7px;" class="material-symbols-outlined">expand_more</span></a>
+                                    <ul>
+                                        <li><a href="~/DanhMucSP/DanhMuc/?id=1&Login=@ViewBag.Login">Cây ăn quả</a></li>
+                                        <li><a href="~/DanhMucSP/DanhMuc/?id=2&Login=@ViewBag.Login">Cây công trình</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Tin tức</a></li>
+                                <li><a href="~/Home/Contact/?Login=@ViewBag.Login">Liên hệ</a></li>
+                                <li><a href="#">Giới thiệu</a></li>
+                            </div>
+
+                            <li>
+                                <form class="search-box" method="post" action="~/Home/KQTimKiem">
+                                    <input class="input-text" placeholder="Nhập từ khóa..." type="text" name="tuKhoa">
+                                    <button type="submit"><span class="material-symbols-outlined">search</span></button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Slider -->
+        <div style="margin-bottom: 20px;" id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/Content/img/slider1.jpg" class="d-block w-100" width="100%" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Content/img/slider2.jpg" class="d-block w-100" width="100%" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Content/img/slider3.jpg" class="d-block w-100" width="100%" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- Noi dung trang -->
+        <content>
+            @RenderBody()
+
+            <!-- Right -->
+            <div class="right">
+                <h4>Danh mục sản phẩm</h4>
+                <div class="categories">
+                    <table>
+                        <tr>
+                            <th>Cây công trình</th>
+                        </tr>
+
+                        @{
+                            var cayCongTrinh = (from loaiCay in db.LoaiCays
+                                                where loaiCay.MaDanhMuc == 2
+                                                select loaiCay).ToList();
+                            foreach (var item in cayCongTrinh)
+                            {
+                                <tr>
+                                    <td><a href="~/DanhMucSP/LoaiCay/?id=@item.MaLoai&name=@item.TenLoai">@item.TenLoai</a></td>
+                                </tr>
+                            }
+                        }
+
+
+                        <tr>
+                            <th>Cây ăn quả</th>
+                        </tr>
+
+                        @{
+                            var cayAnQua = (from loaiCay in db.LoaiCays
+                                                where loaiCay.MaDanhMuc == 1
+                                                select loaiCay).ToList();
+                            foreach (var item in cayAnQua)
+                            {
+                                <tr>
+                                    <td><a href="~/DanhMucSP/LoaiCay/?id=@item.MaLoai&name=@item.TenLoai">@item.TenLoai</a></td>
+                                </tr>
+                            }
+                        }
+                    </table>
+                </div>
+
+                <h4>Sản phẩm bán chạy</h4>
+                <div class="right-items-1">
+                    @{
+                        var sanPhamBanChay = (from spbc in db.SanPhams
+                                              where spbc.SLDaBan>=60
+                                              orderby spbc.SLDaBan descending
+                                              select spbc).ToList();
+
+                        foreach (var item in sanPhamBanChay)
+                        {
+                            <div class="right-item">
+                                <div class="thumbnail">
+                                    <img src="~/Content/img/@item.Img1" width="100%">
+                                </div>
+                                <div class="body">
+                                    <h5>@string.Format("{0:#,0}", item.TenSP)</h5>
+                                    <p>@string.Format("{0:#,0}", item.SLDaBan) đã mua</p>
+                                    <a href="~/SanPham/ChiTietSanPham/?id=@item.MaSP&Login=@ViewBag.Login"><button>Xem ngay</button></a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="comment">
+
+            </div>
+        </content>
+
+        <!-- Chan trang -->
+        <footer>
+            <!-- Phone fixed -->
+            <div class="live-call">
+                <a href="tel:0123456789"><span style="position: relative;font-size: 30px;top: 7px;left: 10px;color: white;" class="material-symbols-outlined">phone_in_talk_watchface_indicator</span><p>0123.xxx.xxx</p></a>
+            </div>
+            <div id="up-top">
+                <span class="material-symbols-outlined" style="font-size: 45px; color: var(--main-color2);">keyboard_control_key</span>
+            </div>
+            <!-- Left -->
+            <div class="left">
+                <h3 class="infor infor-title">Thông tin liên hệ:</h3>
+
+                <h5 class="infor">Trung tâm cây giống HLGarden.</h5>
+                <p class="infor"><span class="material-symbols-outlined">location_on</span>Địa chỉ: Trâu Quỳ-Gia Lâm-Hà Nội.</p>
+                <p class="infor"><span class="material-symbols-outlined">phone_iphone</span>Điện thoại: 0123.xxx.xxx</p>
+                <p class="infor"><span class="material-symbols-outlined">mail</span>Email: caygiong-hlgarden@@email.com</p>
+
+                <a href=""><img src="~/Content/img/facebook-icon.png" width="40px"></a>
+                <a href=""><img src="~/Content/img/zalo-icon.png" width="40px"></a>
+                <a href=""><img src="~/Content/img/youtube-icon.png" width="40px"></a><br>
+
+                <iframe style="padding: 10px;" width="100%" height="300px" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.699459462453!2d105.9368535139655!3d21.004681093977954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135a8ce82119341%3A0x2eaf13edf774db38!2zMjE1IMSQLiBUcsOidSBRdeG7sywgVHLDonUgUXXhu7MsIEdpYSBMw6JtLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1666147517683!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <!-- Right -->
+            <div class="right">
+                <h3 class="infor infor-title">Giới thiệu:</h3>
+
+                <ul class="infor">
+                    <li><a href=""><span class="material-symbols-outlined">arrow_right</span>Bộ máy hoạt động</a></li>
+                    <li><a href=""><span class="material-symbols-outlined">arrow_right</span>Sản phẩm</a></li>
+                    <li><a href=""><span class="material-symbols-outlined">arrow_right</span>Dịch vụ</a></li>
+                    <li><a href=""><span class="material-symbols-outlined">arrow_right</span>Đánh giá của khách hàng</a></li>
+                    <li><a href=""><span class="material-symbols-outlined">arrow_right</span>Tuyển dụng</a></li>
+                    <li><a href=""><span class="material-symbols-outlined">arrow_right</span>Liên kết, hợp tác</a></li>
+                </ul>
+            </div>
+
+            <!-- Under contact -->
+            <div class="email-contact">
+                <form action="">
+                    <p style="color: white;">Để lại Email giúp chúng tôi liên hệ với bạn:</p>
+                    <input type="mail" name="email" placeholder="Để lại email...">
+                    <button type="submit">Gửi</button>
+                </form>
+            </div>
+
+            <!-- Bottom -->
+            <p class="bottom">
+                Copyright ©️ by HLGarden
+            </p>
+        </footer>
+    </div>
+
+    <!-- JS -->
+    <script src="~/Content/js/main.js"></script>
+</body>
+</html>
